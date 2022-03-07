@@ -1,0 +1,144 @@
+@font-face {
+    font-family: 'Livvic';
+    src: local('Livvic Thin Italic'), local('Livvic-ThinItalic'),
+        url('Livvic-ThinItalic.woff2') format('woff2');
+    font-weight: 100;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Livvic';
+    src: local('Livvic Black'), local('Livvic-Black'),
+        url('Livvic-Black.woff2') format('woff2');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Livvic';
+    src: local('Livvic ExtraLight Italic'), local('Livvic-ExtraLightItalic'),
+        url('Livvic-ExtraLightItalic.woff2') format('woff2');
+    font-weight: 200;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Livvic';
+    src: local('Livvic Light'), local('Livvic-Light'),
+        url('Livvic-Light.woff2') format('woff2');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Livvic';
+    src: local('Livvic Italic'), local('Livvic-Italic'),
+        url('Livvic-Italic.woff2') format('woff2');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Livvic';
+    src: local('Livvic ExtraLight'), local('Livvic-ExtraLight'),
+        url('Livvic-ExtraLight.woff2') format('woff2');
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Livvic';
+    src: local('Livvic Bold Italic'), local('Livvic-BoldItalic'),
+        url('Livvic-BoldItalic.woff2') format('woff2');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Livvic';
+    src: local('Livvic Black Italic'), local('Livvic-BlackItalic'),
+        url('Livvic-BlackItalic.woff2') format('woff2');
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Livvic';
+    src: local('Livvic Bold'), local('Livvic-Bold'),
+        url('Livvic-Bold.woff2') format('woff2');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Livvic';
+    src: local('Livvic Regular'), local('Livvic-Regular'),
+        url('Livvic-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Livvic';
+    src: local('Livvic Medium Italic'), local('Livvic-MediumItalic'),
+        url('Livvic-MediumItalic.woff2') format('woff2');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Livvic';
+    src: local('Livvic Light Italic'), local('Livvic-LightItalic'),
+        url('Livvic-LightItalic.woff2') format('woff2');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Livvic';
+    src: local('Livvic Medium'), local('Livvic-Medium'),
+        url('Livvic-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Livvic';
+    src: local('Livvic SemiBold Italic'), local('Livvic-SemiBoldItalic'),
+        url('Livvic-SemiBoldItalic.woff2') format('woff2');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Livvic';
+    src: local('Livvic SemiBold'), local('Livvic-SemiBold'),
+        url('Livvic-SemiBold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Livvic';
+    src: local('Livvic Thin'), local('Livvic-Thin'),
+        url('Livvic-Thin.woff2') format('woff2');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+

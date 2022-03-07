@@ -1,0 +1,15 @@
+
+body {
+	--global-background: rgb(235, 235, 235);
+
+	font-family: "Work Sans", "Segoe UI", "Open Sans";
+	background-color: var(--global-background);
+}
+
+icon {
+	font-
+}
+
+icon[data-icon="upload"]::after {
+	content: "\e09a";
+}

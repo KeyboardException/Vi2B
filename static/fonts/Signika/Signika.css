@@ -1,0 +1,45 @@
+@font-face {
+    font-family: 'Signika';
+    src: local('Signika Bold'), local('Signika-Bold'),
+        url('Signika-Bold.woff2') format('woff2');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Signika';
+    src: local('Signika SemiBold'), local('Signika-SemiBold'),
+        url('Signika-SemiBold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Signika';
+    src: local('Signika Light'), local('Signika-Light'),
+        url('Signika-Light.woff2') format('woff2');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Signika';
+    src: local('Signika Medium'), local('Signika-Medium'),
+        url('Signika-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Signika';
+    src: local('Signika Regular'), local('Signika-Regular'),
+        url('Signika-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+

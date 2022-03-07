@@ -1,0 +1,81 @@
+@font-face {
+    font-family: 'League Spartan';
+    src: local('League Spartan Thin'), local('LeagueSpartan-Thin'),
+        url('LeagueSpartan-Thin.woff2') format('woff2');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'League Spartan';
+    src: local('League Spartan Bold'), local('LeagueSpartan-Bold'),
+        url('LeagueSpartan-Bold.woff2') format('woff2');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'League Spartan';
+    src: local('League Spartan Black'), local('LeagueSpartan-Black'),
+        url('LeagueSpartan-Black.woff2') format('woff2');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'League Spartan';
+    src: local('League Spartan ExtraLight'), local('LeagueSpartan-ExtraLight'),
+        url('LeagueSpartan-ExtraLight.woff2') format('woff2');
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'League Spartan';
+    src: local('League Spartan ExtraBold'), local('LeagueSpartan-ExtraBold'),
+        url('LeagueSpartan-ExtraBold.woff2') format('woff2');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'League Spartan';
+    src: local('League Spartan Regular'), local('LeagueSpartan-Regular'),
+        url('LeagueSpartan-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'League Spartan';
+    src: local('League Spartan Light'), local('LeagueSpartan-Light'),
+        url('LeagueSpartan-Light.woff2') format('woff2');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'League Spartan';
+    src: local('League Spartan Medium'), local('LeagueSpartan-Medium'),
+        url('LeagueSpartan-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'League Spartan';
+    src: local('League Spartan SemiBold'), local('LeagueSpartan-SemiBold'),
+        url('LeagueSpartan-SemiBold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
