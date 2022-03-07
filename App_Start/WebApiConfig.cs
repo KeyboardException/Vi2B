@@ -11,11 +11,23 @@ namespace Vi2B {
             // Web API routes
             config.MapHttpAttributeRoutes();
 
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+			config.Routes.MapHttpRoute(
+				name: "GetVideoAPI",
+				routeTemplate: "api/{controller}/{id}",
+				defaults: new { }
+			);
+
+			config.Routes.MapHttpRoute(
+                name: "VideoAPI",
+                routeTemplate: "api/{controller}/{action}",
+                defaults: new { }
             );
+
+			config.Routes.MapHttpRoute(
+				name: "UploadVideoAPI",
+				routeTemplate: "api/{controller}/{action}/{hash}",
+				defaults: new { }
+			);
         }
     }
 }
