@@ -21,6 +21,13 @@ body {
 	overflow-y: auto;
 }
 
+#app > .spinner {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
 .cap-width {
 	position: relative;
 	width: 100%;
@@ -48,6 +55,42 @@ icon[data-icon="upload"]::after {
 
 icon[data-icon="upload2"]::after {
 	content: "\f093";
+}
+
+icon[data-icon="thumbUp"]::after {
+	content: "\f164";
+}
+
+icon[data-icon="thumbDown"]::after {
+	content: "\f165";
+}
+
+icon[data-icon="share"]::after {
+	content: "\f064";
+}
+
+icon[data-icon="gear"]::after {
+	content: "\f013";
+}
+
+icon[data-icon="expand"]::after {
+	content: "\f065";
+}
+
+icon[data-icon="compress"]::after {
+	content: "\f066";
+}
+
+icon[data-icon="square"]::after {
+	content: "\f0c8";
+}
+
+icon[data-icon="browser"]::after {
+	content: "\f37e";
+}
+
+icon[data-icon="arrowUpRight"]::after {
+	content: "\f14c";
 }
 
 /** VIDEO CARD **/
@@ -103,7 +146,21 @@ icon[data-icon="upload2"]::after {
 }
 
 .videoCard > .bottom > .details > .name {
+	display: -webkit-box;
+
+	color: black;
+	text-decoration: none;
 	font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: normal;
+	-webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+
+	overflow: hidden;
+}
+
+.videoCard:hover > .bottom > .details > .name {
+	text-decoration: underline;
 }
 
 .videoCard > .bottom > .details > .channel {
@@ -111,4 +168,78 @@ icon[data-icon="upload2"]::after {
 	margin-top: 5px;
 	font-weight: 500;
 	color: black;
+}
+
+.videoCard > .bottom > .details > .metadata {
+	margin-top: 2px;
+	font-size: 13px;
+}
+
+/** VIDEO LIST **/
+
+.videoList {
+	display: flex;
+	flex-direction: row;
+
+	--width: 168px;
+	--height: 94px;
+	height: var(--height);
+}
+
+.videoList > .thumb {
+	position: relative;
+	flex-shrink: 0;
+}
+
+.videoList > .thumb > .thumbnail {
+	width: var(--width);
+	border-radius: 5px;
+}
+
+.videoList > .thumb > .length {
+	position: absolute;
+
+	bottom: 10px;
+	right: 10px;
+	padding: 2px 6px;
+	border-radius: 4px;
+
+	font-size: 14px;
+	font-weight: 600;
+	color: white;
+	background-color: rgba(0, 0, 0, 0.8);
+}
+
+.videoList > .right {
+	margin-left: 10px;
+}
+
+.videoList > .right > .name {
+	display: -webkit-box;
+
+	color: black;
+	text-decoration: none;
+	font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: normal;
+	-webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+
+	overflow: hidden;
+}
+
+.videoList:hover > .bottom > .details > .name {
+	text-decoration: underline;
+}
+
+.videoList > .right > .channel {
+	display: block;
+	margin-top: 5px;
+	font-weight: 500;
+	color: black;
+}
+
+.videoList > .right > .metadata {
+	margin-top: 2px;
+	font-size: 13px;
 }

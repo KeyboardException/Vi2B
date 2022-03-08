@@ -48,7 +48,9 @@ nav > .left > .logo {
 	border-radius: 8px;
 }
 
-nav > .right > icon {
+nav > .right > a {
+	display: grid;
+	align-items: center;
 	width: 48px;
 	height: 48px;
 
@@ -58,11 +60,11 @@ nav > .right > icon {
 	transition: background-color 0.3s ease;
 }
 
-nav > .right > icon:hover {
+nav > .right > a:hover {
 	background-color: rgba(0, 0, 0, 0.1);
 }
 
-nav > .right > icon:active {
+nav > .right > a:active {
 	background-color: rgba(0, 0, 0, 0.2);
 }
 

@@ -74,8 +74,10 @@ namespace Vi2B.Objects {
 			SqlDataReader reader = command.ExecuteReader();
 			command.Dispose();
 
-			if (!reader.Read())
+			if (!reader.Read()) {
+				reader.Close();
 				throw new KeyNotFoundException("Video with id " + id + " does not exist!");
+			}
 
 			Video video = ProcessRecord(reader);
 			reader.Close();
@@ -91,13 +93,31 @@ namespace Vi2B.Objects {
 			SqlDataReader reader = command.ExecuteReader();
 			command.Dispose();
 
-			if (!reader.Read())
+			if (!reader.Read()) {
+				reader.Close();
 				throw new KeyNotFoundException("Video with hash " + hash + " does not exist!");
+			}
 
 			Video video = ProcessRecord(reader);
 			reader.Close();
 
 			return video;
+		}
+
+		public static List<Video> GetAll() {
+			List<Video> videos = new List<Video>() { };
+
+			string sql = @"SELECT * FROM videos";
+
+			SqlCommand command = new SqlCommand(sql, DB.Connection);
+			SqlDataReader reader = command.ExecuteReader();
+			command.Dispose();
+
+			while (reader.Read())
+				videos.Add(ProcessRecord(reader));
+
+			reader.Close();
+			return videos;
 		}
 
 		public static Video ProcessRecord(SqlDataReader reader) {

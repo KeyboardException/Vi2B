@@ -1,0 +1,14 @@
+﻿
+#app > .videos > .content {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+#app > .videos > .content {
+	padding: 10px 0;
+}
+
+#app > .videos > .content > .videoCard {
+	margin: 10px;
+}

@@ -9,8 +9,9 @@ namespace Vi2B {
 	public class PingController : ApiController {
 
 		[HttpGet]
-		public string Ping() {
-			return "PONG";
+		[Route("api/ping")]
+		public HttpResponseMessage Ping() {
+			return API.Response(Request, "PONG");
 		}
 	}
 } 

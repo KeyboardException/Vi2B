@@ -264,9 +264,21 @@ namespace Vi2B.Controllers {
 		}
 
 		[HttpGet]
-		[Route("api/video/{id}")]
+		[Route("api/video/id/{id}")]
 		public Video Get(int id) {
 			return Video.Get(id);
+		}
+
+		[HttpGet]
+		[Route("api/video/{hash}")]
+		public Video Get(string hash) {
+			return Video.Get(hash);
+		}
+
+		[HttpGet]
+		[Route("api/videos")]
+		public List<Video> GetAll() {
+			return Video.GetAll();
 		}
 	}
 }

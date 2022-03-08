@@ -39,6 +39,7 @@ const upload = {
 	record: undefined,
 
 	init() {
+		emptyNode(this.container);
 		this.setup();
 
 		this.container.append(this.uploadProgress, this.main);
@@ -340,6 +341,7 @@ const upload = {
 
 	/**
 	 * Handle Upload Video
+	 * @return {Promise}
 	 */
 	async onUpload() {
 		if (!this.video)
@@ -348,6 +350,7 @@ const upload = {
 		this.uploadForm.choose.loading(true);
 		this.uploadForm.choose.dataset.triColor = "blue";
 		let meta = await this.parseVideo(this.video);
+		this.log("INFO", "Creating new video record...");
 
 		try {
 			let response = await myajax({
@@ -384,15 +387,8 @@ const upload = {
 
 		// Upload thumbnail first
 		try {
-			await myajax({
-				url: `/api/video/thumbnail/${this.record.hash}`,
-				method: "POST",
-				form: {
-					thumbnail: meta.thumbnail
-				}
-			});
-
-			this.updateForm.right.thumbnail.src = `/api/video/thumbnail/${this.record.hash}`;
+			await this.record.updateThumb(meta.thumbnail);
+			this.updateForm.right.thumbnail.src = this.record.getThumbURL();
 		} catch(e) {
 			this.setProgress(-1, "-- phút", "Khởi Tạo Thất Bại!");
 			return;
@@ -438,6 +434,7 @@ const upload = {
 			this.completed();
 		} catch(e) {
 			this.setProgress(-1);
+			this.log("ERRR", e);
 			return;
 		}
 	},
@@ -457,6 +454,11 @@ const upload = {
 			return;
 		}
 		
+		if (this.updateForm.right.thumbnail.input.files[0]) {
+			this.log("INFO", "New thumbnail detected! Uploading it now...");
+			await this.record.updateThumb(this.updateForm.right.thumbnail.input.files[0]);
+		}
+
 		this.updateForm.left.buttons.submit.loading(false);
 		this.updated = true;
 

@@ -1,0 +1,596 @@
+/* 
+? |-----------------------------------------------------------------------------------------------|
+? |  /assets/css/video.css                                                                        |
+? |                                                                                               |
+? |  Copyright (c) 2018-2019 Belikhun. All right reserved                                         |
+? |  Licensed under the MIT License. See LICENSE in the project root for license information.     |
+? |-----------------------------------------------------------------------------------------------|
+*/
+
+t {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.videoJS {
+    position: relative;
+    display: inline-flex;
+    font-size: 12px;
+}
+
+.videoJS > video {
+    position: relative;
+    display: block;
+    flex-grow: 1;
+    flex-shrink: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.videoJS.fullscreen > video {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.videoJS > .wrapper {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.videoJS > .wrapper > .control {
+    position: absolute;
+    display: block;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.videoJS > .wrapper.show > .control {
+    opacity: 1;
+}
+
+.videoJS > .wrapper > .control > .underlay {
+    position: absolute;
+    display: block;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.videoJS > .wrapper > .control > .bar {
+    position: absolute;
+    display: flex;
+    align-items: center;
+
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+
+    box-sizing: border-box;
+    border-radius: 5px;
+    background-color: rgba(24, 24, 24, 0.6);
+}
+
+.videoJS > .wrapper > .control > .bar > icon {
+    position: relative;
+    flex-grow: 0;
+
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.videoJS > .wrapper > .control > .bar > icon:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.videoJS > .wrapper > .control > .bar > icon::after {
+    display: block;
+    font-size: 17px;
+    font-weight: 600;
+    color: rgb(255, 255, 255);
+    transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.videoJS > .wrapper > .control > .bar > icon.pause::after {
+    content: "\f04c";
+}
+
+.videoJS > .wrapper > .control > .bar > .seeker {
+    position: relative;
+    display: inline-block;
+    flex-grow: 1;
+    padding: 4px 0;
+    margin: 0 8px;
+    height: 8px;
+    cursor: pointer;
+
+    transition: height 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.videoJS > .wrapper > .control > .bar > .seeker > .preview {
+    position: absolute;
+    display: block;
+    bottom: calc(100% + 14px);
+    padding: 6px;
+    background-color: rgba(0, 0, 0, 0.2);
+    transform: translateX(-50%);
+    border-radius: 3px;
+    cursor: default;
+
+    transition: opacity 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+    opacity: 0;
+}
+
+.videoJS > .wrapper > .control > .bar > .seeker > .preview > .image {
+    position: relative;
+    min-width: 120px;
+    min-height: 67.5px;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.videoJS > .wrapper > .control > .bar > .seeker > .preview > .time {
+    position: absolute;
+
+    bottom: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0 4px;
+
+    color: white;
+    font-weight: 500;
+    font-size: 13px;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.videoJS > .wrapper > .control > .bar > .seeker > .seekbar {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(190, 190, 190, 0.4);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.videoJS > .wrapper > .control > .bar > .seeker > .seekbar > .buffered {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: rgba(197, 197, 197, 0.7);
+}
+
+.videoJS > .wrapper > .control > .bar > .seeker > .seekbar > .time {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: rgb(137, 208, 255);
+}
+
+.videoJS > .wrapper > .control > .bar > .seeker > .seekbar > .marker {
+    position: absolute;
+    height: 100%;
+    width: 2px;
+    top: 0;
+    background-color: rgb(255, 0, 0);
+
+    transition: opacity 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+    opacity: 0;
+}
+
+.videoJS > .wrapper > .control > .bar > .seeker > .seek {
+    position: absolute;
+    height: calc(100% + 6px);
+    width: 100%;
+    top: 0px;
+    left: 0px;
+}
+
+.videoJS > .wrapper > .control > .bar > .seeker[data-seeking="true"] {
+    height: 12px;
+}
+
+.videoJS > .wrapper > .control > .bar > .seeker[data-seeking="true"] > .preview,
+.videoJS > .wrapper > .control > .bar > .seeker[data-seeking="true"] > .seekbar > .marker {
+    opacity: 1;
+}
+
+.videoJS > .wrapper > .control > .bar > .settings.active::after {
+    transform: rotate(-30deg);
+}
+
+.videoJS > .wrapper > .control > .bar > .mini.enlarge::after {
+    content: "\f2d2";
+}
+
+.videoJS > .wrapper > .control > .bar > .fullscreen.exit::after {
+    content: "\f066";
+}
+
+.videoJS > .wrapper > .control > .bar > t {
+    position: relative;
+    color: white;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 0 10px;
+}
+
+.videoJS > .wrapper > .control > .setting {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+
+    bottom: 60px;
+    right: 10px;
+    width: 200px;
+    border-radius: 4px;
+
+    background-color: rgba(24, 24, 24, 0.6);
+    overflow: hidden;
+    transform: translateX(calc(100% + 20px));
+    opacity: 0;
+
+    transition:
+        transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1),
+        opacity 0.2s cubic-bezier(0.215, 0.61, 0.355, 1) 0.1s;
+}
+
+.videoJS > .wrapper > .control > .setting.show {
+    transform: unset;
+    opacity: 1;
+}
+
+.videoJS > .wrapper > .control > .setting::before {
+    content: "\f013";
+    position: relative;
+    display: block;
+    flex-grow: 1;
+    
+    padding: 12px 10px;
+    font-family: "Font Awesome Free";
+    font-weight: 600;
+    font-size: 18px;
+    text-align: center;
+    color: rgb(255, 255, 255);
+    background-color: rgba(24, 24, 24, 0.4);
+}
+
+.videoJS > .wrapper > .control > .setting > .item {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.videoJS > .wrapper > .control > .setting > .item > icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 0;
+    flex-shrink: 0;
+
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    background-color: rgba(24, 24, 24, 0.2);
+
+    transition: all 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.videoJS > .wrapper > .control > .setting > .item > icon:hover {
+    background-color: rgba(24, 24, 24, 0.4);
+}
+
+.videoJS > .wrapper > .control > .setting > .item > icon::after {
+    font-size: 16px;
+    color: rgb(255, 255, 255);
+}
+
+.videoJS > .wrapper > .control > .setting > .volume > icon::after {
+    content: "\f028";
+}
+
+.videoJS > .wrapper > .control > .setting > .volume > icon[data-type="down"]::after {
+    content: "\f027";
+}
+
+.videoJS > .wrapper > .control > .setting > .volume > icon[data-type="off"]::after {
+    content: "\f026";
+}
+
+.videoJS > .wrapper > .control > .setting > .volume > icon[data-type="mute"]::after {
+    content: "\f6a9";
+}
+
+.videoJS > .wrapper > .control > .setting > .speed > icon::after {
+    content: "\f017";
+}
+
+.videoJS > .wrapper > .control > .setting > .item > .text {
+    position: relative;
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 40px;
+    padding: 0 8px;
+
+    font-weight: 500;
+    font-size: 14px;
+    text-align: right;
+    user-select: none;
+    color: rgb(255, 255, 255);
+}
+
+.videoJS > .wrapper > .control > .setting > .item > .osc-slider {
+    position: relative;
+    flex-grow: 1;
+    margin-left: 10px;
+}
+
+.videoJS > .wrapper > .spinner {
+    position: absolute;
+    display: none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.videoJS > .wrapper[data-loading="true"] > .spinner {
+    display: block;
+}
+
+
+/* Mobile */
+.videoJS[data-type="mobile"] > .wrapper > .header {
+    background-image: unset;
+}
+
+.videoJS[data-type="mobile"] > .wrapper > .header > .group > .info {
+    opacity: 1;
+}
+
+.videoJS[data-type="mobile"] > .wrapper > .control > .bar {
+    display: block;
+
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+
+    border-radius: 0;
+    background-color: unset;
+    background-color: rgba(42, 42, 42, 0.6);
+}
+
+.videoJS[data-type="mobile"] > .wrapper > .control > .bar t,
+.videoJS[data-type="mobile"] > .wrapper > .control > .bar > .seeker {
+    position: absolute;
+}
+
+.videoJS[data-type="mobile"] > .wrapper > .control > .bar t {
+    font-size: 16px;
+}
+
+.videoJS[data-type="mobile"] > .wrapper > .control > .bar > icon {
+    position: absolute;
+    background-color: transparent;
+}
+
+.videoJS[data-type="mobile"] > .wrapper > .control > .bar > .play {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.videoJS[data-type="mobile"] > .wrapper > .control > .bar > .play::after {
+    font-size: 74px;
+}
+
+.videoJS[data-type="mobile"] > .wrapper > .control > .bar > .backward {
+    top: 50%;
+    left: 50%;
+    transform: translate(calc(-50% - 120px), -50%);
+}
+
+.videoJS[data-type="mobile"] > .wrapper > .control > .bar > .forward {
+    top: 50%;
+    left: 50%;
+    transform: translate(calc(-50% + 120px), -50%);
+}
+
+.videoJS[data-type="mobile"] > .wrapper > .control > .bar > .backward::after,
+.videoJS[data-type="mobile"] > .wrapper > .control > .bar > .forward::after {
+    font-size: 40px;
+}
+
+.videoJS[data-type="mobile"] > .wrapper > .control > .bar > .seeker {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    margin: 0;
+    padding: 0;
+}
+
+.videoJS[data-type="mobile"] > .wrapper > .control > .bar > .seeker[data-seeking="true"] {
+    height: 18px;
+}
+
+.videoJS[data-type="mobile"] > .wrapper > .control > .bar > .seeker > .seekbar {
+    border-radius: unset;
+}
+
+.videoJS[data-type="mobile"] > .wrapper > .control > .bar > .seeker > .seek {
+    top: unset;
+    bottom: 0px;
+    height: calc(100% + 16px)
+}
+
+.videoJS[data-type="mobile"] > .wrapper > .control > .bar > .timecurrent {
+    bottom: 25px;
+    left: 20px;
+    margin: 0;
+}
+
+.videoJS[data-type="mobile"] > .wrapper > .control > .bar > .timetotal {
+    bottom: 25px;
+    right: 66px;
+    margin: 0;
+}
+
+.videoJS[data-type="mobile"] > .wrapper > .control > .bar > .fullscreen {
+    bottom: 14px;
+    right: 20px;
+}
+
+.videoJS[data-type="mobile"] > .wrapper > .control > .bar > .fullscreen::after {
+    font-size: 22px;
+}
+
+.videoJS[data-type="mobile"] > .wrapper > .control > .bar > .settings {
+    top: 50%;
+    left: 50%;
+    transform: translate(calc(-50% + 220px), -50%);
+}
+
+.videoJS[data-type="mobile"] > .wrapper > .control > .bar > .mini {
+    top: 50%;
+    left: 50%;
+    transform: translate(calc(-50% - 220px), -50%);
+}
+
+.videoJS[data-type="mobile"] > .wrapper > .control > .bar > .settings::after,
+.videoJS[data-type="mobile"] > .wrapper > .control > .bar > .mini::after {
+    font-size: 24px;
+}
+
+.videoJS[data-type="mobile"] > .wrapper > .control > .bar > .pip {
+    display: none;
+}
+
+.videoJS[data-type="mobile"] > .wrapper[data-loading="true"] > .control > .bar > icon.play {
+    display: none;
+}
+
+.videoJS[data-type="mobile"] > .wrapper > .control > .setting {
+    bottom: 40px;
+    right: unset;
+    left: 50%;
+    transform: translate(-50%, calc(100% + 40px));
+    opacity: 0;
+}
+
+.videoJS[data-type="mobile"] > .wrapper > .control > .setting.show {
+    transform: translate(-50%, 0);
+    opacity: 1;
+}
+
+/* Mini */
+.videoJS[data-type="mini"] > .wrapper > .header,
+.videoJS[data-type="mini"] > .wrapper > .control > .bar > t,
+.videoJS[data-type="mini"] > .wrapper > .control > .bar > .seeker > .preview,
+.videoJS[data-type="mini"] > .wrapper > .control > .setting,
+.videoJS[data-type="mini"] > .wrapper > .control > .bar > .settings,
+.videoJS[data-type="mini"] > .wrapper > .control > .bar > .backward,
+.videoJS[data-type="mini"] > .wrapper > .control > .bar > .forward {
+    display: none;
+}
+
+.videoJS[data-type="mini"] {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 280px;
+    box-shadow: 4px 4px 5px -2px rgba(0, 0, 0, 0.3);
+    z-index: 999;
+}
+
+.videoJS[data-type="mini"] > .wrapper > .control {
+    background-color: rgba(42, 42, 42, 0.4);
+}
+
+.videoJS[data-type="mini"] > .wrapper > .control > .bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: unset;
+    background-color: unset;
+}
+
+.videoJS[data-type="mini"] > .wrapper > .control > .bar > icon {
+    position: absolute;
+}
+
+.videoJS[data-type="mini"] > .wrapper > .control > .bar > .play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.videoJS[data-type="mini"] > .wrapper > .control > .bar > .play::after {
+    font-size: 32px;
+}
+
+.videoJS[data-type="mini"] > .wrapper > .control > .bar > .pip {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(calc(-50% - 50px), -50%);
+}
+
+.videoJS[data-type="mini"] > .wrapper > .control > .bar > .fullscreen {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(calc(-50% + 50px), -50%);
+}
+
+.videoJS[data-type="mini"] > .wrapper > .control > .bar > .mini {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+.videoJS[data-type="mini"] > .wrapper > .control > .bar > .seeker {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    margin: unset;
+    padding: unset;
+    height: 4px;
+}
+
+.videoJS[data-type="mini"] > .wrapper > .control > .bar > .seeker > .seekbar {
+    border-radius: 0;
+}
+
+.videoJS[data-type="mini"] > .wrapper > .control > .bar > .seeker > .seek {
+    top: unset;
+    bottom: 0px;
+}
+
+.videoJS[data-type="mini"] > .wrapper[data-loading="true"] > .control > .bar > icon.play {
+    display: none;
+}

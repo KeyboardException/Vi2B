@@ -14,7 +14,10 @@ const navbar = {
 			}},
 
 			right: { tag: "span", class: "right", child: {
-				upload: { tag: "icon", data: { icon: "upload" } },
+				upload: { tag: "a", href: "/upload", child: {
+					icon: { tag: "icon", data: { icon: "upload" } },
+				}},
+
 				profile: { tag: "span", class: "profile", child: {
 					displayName: { tag: "span", class: "name", text: "Admin" },
 					avatar: new lazyload({ source: "/static/img/avatar.svg", classes: "avatar" })

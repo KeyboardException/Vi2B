@@ -1,0 +1,185 @@
+﻿
+#app > .view {
+	display: flex;
+	flex-direction: row;
+
+	padding: 20px;
+}
+
+#app > .view > .main {
+	display: flex;
+	flex-direction: column;
+
+	flex-grow: 1;
+}
+
+#app > .view > .main > .videoJS {
+	background-color: rgba(128, 128, 128, 0.2);
+}
+
+#app > .view > .main > .name {
+	font-size: 22px;
+	font-weight: 600;
+	margin-top: 20px;
+}
+
+#app > .view > .main > .info {
+	display: flex;
+	flex-direction: row;
+
+	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+#app > .view > .main > .info > .meta {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+
+	font-size: 16px;
+	flex-grow: 1;
+}
+
+#app > .view > .main > .info > .menu {
+	display: flex;
+	flex-direction: row;
+}
+
+#app > .view > .main > .info > .menu > .likes {
+	position: relative;
+	display: flex;
+	flex-direction: row;
+
+	padding: 0 10px 0 5px;
+}
+
+#app > .view > .main > .info > .menu > .likes > span {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+
+	height: 50px;
+	cursor: pointer;
+}
+
+#app > .view > .main > .info > .menu > .likes > .dislike {
+	margin-left: 20px;
+}
+
+#app > .view > .main > .info > .menu > .likes > span > icon {
+	width: 40px;
+	height: 40px;
+
+	border-radius: 50%;
+}
+
+#app > .view > .main > .info > .menu > .likes > span:hover > icon {
+	background-color: rgba(0, 0, 0, 0.05);
+}
+
+#app > .view > .main > .info > .menu > .likes > span:active > icon {
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+#app > .view > .main > .info > .menu > .likes > span > icon::after {
+	font-weight: 400;
+	color: rgb(66, 66, 66);
+}
+
+#app > .view > .main > .info > .menu > .likes > span > .value {
+	font-size: 15px;
+	font-weight: 700;
+}
+
+#app > .view > .main > .info > .menu > .likes > .ratio {
+	position: absolute;
+
+	bottom: -1px;
+	left: 0;
+	right: 0;
+	height: 4px;
+
+	background-color: rgb(184, 184, 184);
+}
+
+#app > .view > .main > .info > .menu > .likes > .ratio > .bar {
+	position: absolute;
+	display: block;
+
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 50%;
+	background-color: rgb(44, 44, 44);
+}
+
+#app > .view > .main > .info > .menu > .button {
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+
+	margin-left: 10px;
+	padding: 0 10px;
+	cursor: pointer;
+}
+
+#app > .view > .main > .info > .menu > .button > .value {
+	margin-left: 10px;
+	font-weight: 600;
+}
+
+#app > .view > .main > .author {
+	display: flex;
+	flex-direction: column;
+
+	padding: 20px 0;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+#app > .view > .main > .author > .top {
+	display: flex;
+	flex-direction: row;
+}
+
+#app > .view > .main > .author > .top > .channel {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	flex-grow: 1;
+}
+
+#app > .view > .main > .author > .top > .channel > .avatar {
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+}
+
+#app > .view > .main > .author > .top > .channel > .info {
+	margin-left: 15px;
+}
+
+#app > .view > .main > .author > .top > .channel > .info > .name {
+	font-size: 16px;
+	font-weight: 600;
+}
+
+#app > .view > .main > .author > .top > .channel > .info > .subs {
+	font-size: 14px;
+}
+
+#app > .view > .main > .author > .description {
+	padding: 20px 0 10px 75px;
+}
+
+#app > .view > .next {
+	display: flex;
+	flex-direction: column;
+	flex-shrink: 0;
+	
+	width: 402px;
+	margin-left: 20px;
+}
+
+#app > .view > .next > .videoList {
+	margin-bottom: 10px;
+}

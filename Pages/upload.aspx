@@ -10,7 +10,9 @@
 
     <body>
         <nav id="navbar"></nav>
-        <div id="app"></div>
+        <div id="app">
+            <div class="spinner"></div>
+        </div>
         
         <!-- #include file="~/Fragments/footer.html" -->
         <script src="/static/js/upload.js" type="text/javascript"></script>
