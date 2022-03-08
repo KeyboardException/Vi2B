@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Routing;
 
 namespace Vi2B {
     public static class WebApiConfig {
@@ -11,23 +12,7 @@ namespace Vi2B {
             // Web API routes
             config.MapHttpAttributeRoutes();
 
-			config.Routes.MapHttpRoute(
-				name: "GetVideoAPI",
-				routeTemplate: "api/{controller}/{id}",
-				defaults: new { }
-			);
-
-			config.Routes.MapHttpRoute(
-                name: "VideoAPI",
-                routeTemplate: "api/{controller}/{action}",
-                defaults: new { }
-            );
-
-			config.Routes.MapHttpRoute(
-				name: "UploadVideoAPI",
-				routeTemplate: "api/{controller}/{action}/{hash}",
-				defaults: new { }
-			);
+			RouteTable.Routes.MapPageRoute("Tải Lên", "upload", "~/upload.aspx");
         }
     }
 }

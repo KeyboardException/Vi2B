@@ -82,7 +82,7 @@ namespace Vi2B.Controllers {
 		}
 
 		[HttpPost]
-		[ActionName("create")]
+		[Route("api/video/create")]
 		public Video CreateVideo([FromBody] CreateVideoModel model) {
 			if (model == null || model.filename == null)
 				throw new ArgumentException("Unspecified filename and length!");
@@ -98,7 +98,7 @@ namespace Vi2B.Controllers {
 		}
 
 		[HttpPost]
-		[ActionName("upload")]
+		[Route("api/video/upload/{hash}")]
 		public HttpResponseMessage UploadVideo(string hash) {
 			HttpResponseMessage result;
 			var request = HttpContext.Current.Request;
@@ -126,7 +126,7 @@ namespace Vi2B.Controllers {
 		}
 
 		[HttpGet]
-		[ActionName("fetch")]
+		[Route("api/video/fetch/{hash}")]
 		public HttpResponseMessage GetVideo(string hash) {
 			Video video = Video.Get(hash);
 
@@ -197,7 +197,7 @@ namespace Vi2B.Controllers {
 		}
 
 		[HttpGet]
-		[ActionName("thumbnail")]
+		[Route("api/video/thumbnail/{hash}")]
 		public HttpResponseMessage GetThumbnail(string hash) {
 			HttpResponseMessage result;
 
@@ -213,7 +213,7 @@ namespace Vi2B.Controllers {
 		}
 
 		[HttpPost]
-		[ActionName("thumbnail")]
+		[Route("api/video/thumbnail/{hash}")]
 		public HttpResponseMessage UpdateThumbnail(string hash) {
 			HttpResponseMessage result;
 			var request = HttpContext.Current.Request;
@@ -241,7 +241,7 @@ namespace Vi2B.Controllers {
 		}
 
 		[HttpPost]
-		[ActionName("update")]
+		[Route("api/video/update")]
 		public HttpResponseMessage UpdateVideo([FromBody] UpdateVideoModel model) {
 			Video video;
 
@@ -264,6 +264,7 @@ namespace Vi2B.Controllers {
 		}
 
 		[HttpGet]
+		[Route("api/video/{id}")]
 		public Video Get(int id) {
 			return Video.Get(id);
 		}
