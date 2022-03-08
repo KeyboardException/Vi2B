@@ -236,6 +236,9 @@
     <Reference Include="Microsoft.Win32.Registry, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Win32.Registry.4.5.0\lib\net461\Microsoft.Win32.Registry.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json.Bson, Version=1.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.Bson.1.0.1\lib\net45\Newtonsoft.Json.Bson.dll</HintPath>
     </Reference>
@@ -453,9 +456,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System.Net.Http.Formatting">
       <HintPath>packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
@@ -565,6 +565,7 @@
   <ItemGroup>
     <Compile Include="API.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Config.cs" />
     <Compile Include="Controllers\VideoController.cs" />
     <Compile Include="DB.cs" />
     <Compile Include="Global.asax.cs">
@@ -649,6 +650,7 @@
     <Content Include="assets\sounds\.htaccess" />
     <Content Include="assets\sounds\LICENSE.md" />
     <Content Include=".editorconfig" />
+    <Content Include="config.json" />
     <None Include="packages.config" />
     <Content Include="static\fonts\BeVietnamPro\BeVietnamPro-Black.woff2" />
     <Content Include="static\fonts\BeVietnamPro\BeVietnamPro-BlackItalic.woff2" />

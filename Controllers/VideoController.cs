@@ -110,7 +110,7 @@ namespace Vi2B.Controllers {
 					return API.Response(Request, "Invalid Video File!", HttpStatusCode.BadRequest);
 
 				Video video = Video.Get(hash);
-				var path = HttpContext.Current.Server.MapPath("~/data/videos/" + video.hash);
+				var path = Config.DataRoot + "/videos/" + video.hash;
 				file.SaveAs(path);
 
 				video.videoType = file.ContentType;
@@ -130,7 +130,7 @@ namespace Vi2B.Controllers {
 		public HttpResponseMessage GetVideo(string hash) {
 			Video video = Video.Get(hash);
 
-			var path = HttpContext.Current.Server.MapPath("~/data/videos/" + video.hash);
+			var path = Config.DataRoot + "/videos/" + video.hash;
 			FileInfo fileInfo = new FileInfo(path);
 
 			if (!fileInfo.Exists)
@@ -202,7 +202,7 @@ namespace Vi2B.Controllers {
 			HttpResponseMessage result;
 
 			Video video = Video.Get(hash);
-			var path = HttpContext.Current.Server.MapPath("~/data/thumbnails/" + video.hash);
+			var path = Config.DataRoot + "/thumbnails/" + video.hash;
 			FileStream stream = File.OpenRead(path);
 
 			result = new HttpResponseMessage(HttpStatusCode.OK);
@@ -225,7 +225,7 @@ namespace Vi2B.Controllers {
 					return API.Response(Request, "Invalid Image File!", HttpStatusCode.BadRequest);
 
 				Video video = Video.Get(hash);
-				var path = HttpContext.Current.Server.MapPath("~/data/thumbnails/" + video.hash);
+				var path = Config.DataRoot + "/thumbnails/" + video.hash;
 				file.SaveAs(path);
 
 				video.thumbnailType = file.ContentType;

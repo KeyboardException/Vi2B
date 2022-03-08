@@ -8,7 +8,9 @@ using System.Web.Routing;
 namespace Vi2B {
     public class WebApiApplication : System.Web.HttpApplication {
         protected void Application_Start() {
+			Config.Load();
             DB.Connect();
+
             GlobalConfiguration.Configure(WebApiConfig.Register);
         }
     }

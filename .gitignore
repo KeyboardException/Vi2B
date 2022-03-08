@@ -75,6 +75,7 @@ _[Ss]cripts
 *.dot[Cc]over
 
 # Data folder
+/config.json
 /data/**
 !/data/thumbnails/.dummy
 !/data/videos/.dummy
