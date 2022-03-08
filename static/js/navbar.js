@@ -10,7 +10,11 @@ const navbar = {
 			underlay: { tag: "div", class: "underlay" },
 
 			left: { tag: "span", class: "left", child: {
-				logo: new lazyload({ source: "/static/img/logo.png", classes: "logo" })
+				logo: new lazyload({
+					source: "/static/img/logo.png",
+					classes: "logo",
+					tagName: "a"
+				})
 			}},
 
 			right: { tag: "span", class: "right", child: {
@@ -50,6 +54,7 @@ const navbar = {
 		let original = $("#navbar");
 
 		this.container.id = "navbar";
+		this.container.left.logo.container.href = "/";
 		this.container.underlay.addEventListener("click", () => this.hideMenu());
 		this.container.right.profile.addEventListener("click", () => this.toggleMenu());
 		original.parentElement.replaceChild(this.container, original);
