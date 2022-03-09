@@ -109,6 +109,7 @@ icon[data-icon="arrowUpRight"]::after {
 }
 
 .videoCard > .thumb > .thumbnail {
+	width: 100%;
 	height: var(--height);
 	border-radius: 8px;
 }
@@ -194,6 +195,7 @@ icon[data-icon="arrowUpRight"]::after {
 
 .videoList > .thumb > .thumbnail {
 	width: var(--width);
+	height: 100%;
 	border-radius: 5px;
 }
 
