@@ -1,4 +1,7 @@
-﻿
+﻿#app {
+	--max-content-width: 1650px;
+}
+
 #app > .videos > .content {
 	display: flex;
 	flex-direction: row;
