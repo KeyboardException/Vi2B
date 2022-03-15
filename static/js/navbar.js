@@ -1,11 +1,16 @@
 
 const navbar = {
+	original: $("#navbar"),
+
 	/** @type {HTMLElement} */
 	container: undefined,
 
 	menuShowing: false,
 
 	init() {
+		if (!this.original)
+			return false;
+
 		this.container = makeTree("nav", "navbar", {
 			underlay: { tag: "div", class: "underlay" },
 
@@ -50,14 +55,13 @@ const navbar = {
 			}}
 		});
 
-		this.addMenuItem({ name: "Đăng Xuất", icon: "signout" });
-		let original = $("#navbar");
+		this.addMenuItem({ name: "Đăng Xuất", icon: "signout", link: "/login" });
 
 		this.container.id = "navbar";
 		this.container.left.logo.container.href = "/";
 		this.container.underlay.addEventListener("click", () => this.hideMenu());
 		this.container.right.profile.addEventListener("click", () => this.toggleMenu());
-		original.parentElement.replaceChild(this.container, original);
+		this.original.parentElement.replaceChild(this.container, this.original);
 	},
 
 	addMenuItem({ name, icon, link, sub } = {}) {

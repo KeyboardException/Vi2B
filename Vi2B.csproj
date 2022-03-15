@@ -550,12 +550,15 @@
     <Content Include="Fragments\header.html" />
     <Content Include="Global.asax" />
     <Content Include="Pages\index.aspx" />
+    <Content Include="Pages\login.aspx" />
     <Content Include="Pages\watch.aspx" />
     <Content Include="static\css\default.css" />
     <Content Include="static\css\footer.css" />
     <Content Include="static\css\index.css" />
+    <Content Include="static\css\login.css" />
     <Content Include="static\css\navbar.css" />
     <Content Include="static\css\upload.css" />
+    <Content Include="static\css\video.css" />
     <Content Include="static\css\watch.css" />
     <Content Include="static\fonts\BeVietnamPro\BeVietnamPro.css" />
     <Content Include="static\fonts\FontAwesome\FontAwesome.css" />
@@ -569,10 +572,12 @@
     <Content Include="static\img\avatar.svg" />
     <Content Include="static\img\logo.png" />
     <Content Include="static\js\index.js" />
+    <Content Include="static\js\login.js" />
     <Content Include="static\js\navbar.js" />
     <Content Include="static\js\upload.js" />
     <Content Include="Pages\upload.aspx" />
     <Content Include="static\js\utils.js" />
+    <Content Include="static\js\video.js" />
     <Content Include="static\js\watch.js" />
     <Content Include="Web.config" />
   </ItemGroup>

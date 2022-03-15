@@ -15,6 +15,7 @@ const watch = {
 	next: undefined,
 
 	async init() {
+		popup.init();
 		let params = new URLSearchParams(location.search);
 
 		if (!params.has("v")) {
@@ -88,6 +89,21 @@ const watch = {
 						}},
 
 						buttons: { tag: "span", class: "buttons", child: {
+							delete: createButton("XÓA VIDEO", {
+								color: "pink",
+								style: "round",
+								complex: true,
+								icon: "trash"
+							}),
+
+							edit: createButton("", {
+								color: "blue",
+								style: "round",
+								complex: true,
+								icon: "pencil",
+								disabled: true
+							}),
+
 							subscribe: createButton("ĐĂNG KÍ", {
 								color: "red",
 								style: "round",
@@ -110,11 +126,46 @@ const watch = {
 		});
 
 		emptyNode(this.container);
+		new Scrollable(this.container, { content: this.view });
 
 		for (let item of this.next)
 			this.view.next.appendChild(item.renderList());
 
+		// Attach events
+		this.view.main.author.top.buttons.delete
+			.addEventListener("click", () => this.delete());
+
 		this.container.appendChild(this.view);
+	},
+
+	async delete() {
+		let confirm = await popup.show({
+			windowTitle: `Xóa ${this.video.hash}`,
+			title: "Xác Nhận",
+			icon: "trash",
+			message: `${this.video.name}`,
+			description: "Bạn có chắc muốn xóa video này không?",
+			note: "Hành động này không thể hoàn tác một khi đã thực hiện!",
+			noteLevel: "warning",
+			buttonList: {
+				confirm: { text: "XÓA!", color: "red" },
+				cancel: { text: "thôi, nghĩ lại rùi 😁", color: "brown" }
+			}
+		});
+
+		if (confirm !== "confirm")
+			return;
+
+		this.view.main.author.top.buttons.delete.loading(true);
+
+		try {
+			await this.video.delete();
+		} catch(e) {
+			errorHandler(e);
+		}
+
+		this.view.main.author.top.buttons.delete.loading(false);
+		location.href = "/";
 	}
 }
 

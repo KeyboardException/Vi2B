@@ -66,6 +66,21 @@ namespace Vi2B.Objects {
 			}
 		}
 
+		public bool Delete() {
+			string sql = @"DELETE FROM videos WHERE id = @id";
+
+			SqlCommand command = new SqlCommand(sql, DB.Connection);
+			command.Parameters.AddWithValue("id", id);
+			int affected = command.ExecuteNonQuery();
+
+			if (affected == 0) {
+				return false;
+			}
+
+			id = null;
+			return true;
+		}
+
 		public static Video Get(int id) {
 			string sql = @"SELECT TOP 1 * FROM videos WHERE id = @id";
 
@@ -107,7 +122,7 @@ namespace Vi2B.Objects {
 		public static List<Video> GetAll() {
 			List<Video> videos = new List<Video>() { };
 
-			string sql = @"SELECT * FROM videos";
+			string sql = @"SELECT * FROM videos ORDER BY created DESC";
 
 			SqlCommand command = new SqlCommand(sql, DB.Connection);
 			SqlDataReader reader = command.ExecuteReader();

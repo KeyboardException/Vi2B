@@ -6,12 +6,56 @@
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-}
 
-#app > .videos > .content {
 	padding: 10px 0;
+	margin-bottom: 200px;
 }
 
 #app > .videos > .content > .videoCard {
 	margin: 10px;
+}
+
+@media only screen and (max-width: 1705px) {
+	#app {
+		--max-content-width: 1320px;
+	}
+}
+
+@media only screen and (max-width: 1360px) {
+	#app {
+		--max-content-width: 990px;
+	}
+}
+
+@media only screen and (max-width: 1030px) {
+	#app {
+		--max-content-width: 660px;
+	}
+}
+
+@media only screen and (max-width: 700px) {
+	#app {
+		--max-content-width: 100%;
+	}
+
+	#app > .videos {
+		padding-top: 0;
+	}
+
+	#app > .videos > .content {
+		margin: 0;
+		padding-top: 0;
+		width: 100%;
+	}
+
+	#app > .videos > .content > .videoCard {
+		--width: 100%;
+		margin: 0 0 40px;
+	}
+
+	#app > .videos > .content > .videoCard > .thumb > .thumbnail {
+		height: auto;
+		aspect-ratio: 16 / 9;
+		border-radius: 0;
+	}
 }

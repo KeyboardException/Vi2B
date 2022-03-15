@@ -15,6 +15,7 @@ const index = {
 		
 		this.videos = await Video.getAllVideos();
 		emptyNode(this.container);
+		new Scrollable(this.container, { content: this.view });
 
 		for (let video of this.videos)
 			this.view.content.appendChild(video.render());

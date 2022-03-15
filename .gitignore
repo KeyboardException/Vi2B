@@ -79,3 +79,5 @@ _[Ss]cripts
 /data/**
 !/data/thumbnails/.dummy
 !/data/videos/.dummy
+.fake
+.ionide

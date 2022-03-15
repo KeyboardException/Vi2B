@@ -166,6 +166,13 @@ class Video {
 		});
 	}
 
+	async delete() {
+		await myajax({
+			url: `/api/video/${this.hash}`,
+			method: "DELETE"
+		});
+	}
+
 	/**
 	 * Update new thumbnail
 	 * @param {Blob|File} thumbnail 
@@ -241,5 +248,27 @@ class Video {
 			response.thumbnailType,
 			response.uploaded
 		);
+	}
+}
+
+/**
+ * Disable all input inside a form
+ * @param	{HTMLFormElement}		form
+ */
+ function disableInputs(form) {
+	for (let input of form.elements) {
+		if (input instanceof HTMLInputElement)
+			input.disabled = true;
+	}
+}
+
+/**
+ * Enable all input inside a form
+ * @param	{HTMLFormElement}		form
+ */
+function enableInputs(form) {
+	for (let input of form.elements) {
+		if (input instanceof HTMLInputElement)
+			input.disabled = false;
 	}
 }

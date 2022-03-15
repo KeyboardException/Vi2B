@@ -275,6 +275,26 @@ namespace Vi2B.Controllers {
 			return Video.Get(hash);
 		}
 
+		[HttpDelete]
+		[Route("api/video/{hash}")]
+		public HttpResponseMessage Delete(string hash) {
+			Video video = Video.Get(hash);
+
+			if (!video.Delete())
+				return API.Response(Request, "Cannot delete video!", HttpStatusCode.InternalServerError);
+
+			var videoFile = Config.DataRoot + "/videos/" + video.hash;
+			var thumbnailFile = Config.DataRoot + "/thumbnails/" + video.hash;
+
+			if (File.Exists(videoFile))
+				File.Delete(videoFile);
+
+			if (File.Exists(thumbnailFile))
+				File.Delete(thumbnailFile);
+
+			return API.Response(Request, "Deleted video " + video.hash);
+		}
+
 		[HttpGet]
 		[Route("api/videos")]
 		public List<Video> GetAll() {
