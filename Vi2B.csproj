@@ -549,9 +549,9 @@
     <Content Include="Fragments\footer.html" />
     <Content Include="Fragments\header.html" />
     <Content Include="Global.asax" />
-    <Content Include="Pages\index.aspx" />
-    <Content Include="Pages\login.aspx" />
-    <Content Include="Pages\watch.aspx" />
+    <Content Include="Pages\Index.aspx" />
+    <Content Include="Pages\Login.aspx" />
+    <Content Include="Pages\Watch.aspx" />
     <Content Include="static\css\default.css" />
     <Content Include="static\css\footer.css" />
     <Content Include="static\css\index.css" />
@@ -575,10 +575,11 @@
     <Content Include="static\js\login.js" />
     <Content Include="static\js\navbar.js" />
     <Content Include="static\js\upload.js" />
-    <Content Include="Pages\upload.aspx" />
+    <Content Include="Pages\Upload.aspx" />
     <Content Include="static\js\utils.js" />
     <Content Include="static\js\video.js" />
     <Content Include="static\js\watch.js" />
+    <Content Include="Templates\VideoCard.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -589,7 +590,22 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HtmlTemplate.cs" />
     <Compile Include="Objects\Video.cs" />
+    <Compile Include="Pages\Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Watch.aspx.cs">
+      <DependentUpon>Watch.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Watch.aspx.designer.cs">
+      <DependentUpon>Watch.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\PingController.cs" />
     <Compile Include="Stores\VideoStore.cs" />

@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Index.aspx.cs" Inherits="Vi2B.Pages.Index" %>
+
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8" />
@@ -11,7 +13,9 @@
     <body>
         <nav id="navbar"></nav>
         <div id="app">
-            <div class="spinner"></div>
+            <div class="videos cap-width">
+                <div id="VideoCards" class="content" runat="server"></div>
+            </div>
         </div>
         
         <!-- #include file="~/Fragments/footer.html" -->

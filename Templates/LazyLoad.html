@@ -1,0 +1,19 @@
+<div id="{{id}}"></div>
+<script type='text/javascript'>
+	// Isolate scope
+	(function() {
+		let container = document.getElementById(`{{id}}`);
+		let attributes = JSON.parse(`{{attributes}}`);
+		let classes = JSON.parse(`{{classes}}`);
+
+		for (let key of Object.keys(attributes))
+			container[key] = attributes[key];
+
+		new lazyload({
+			container,
+			source: `{{url}}`,
+			classes,
+			spinner: `{{spinner}}`
+		});
+	})();
+</script>

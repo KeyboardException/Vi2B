@@ -12,10 +12,10 @@ namespace Vi2B {
             // Web API routes
             config.MapHttpAttributeRoutes();
 
-			RouteTable.Routes.MapPageRoute("Trang Chủ", "", "~/Pages/index.aspx");
-			RouteTable.Routes.MapPageRoute("Tải Lên", "upload", "~/Pages/upload.aspx");
-			RouteTable.Routes.MapPageRoute("Xem Video", "watch", "~/Pages/watch.aspx");
-			RouteTable.Routes.MapPageRoute("Đăng Nhập", "login", "~/Pages/login.aspx");
+			RouteTable.Routes.MapPageRoute("Trang Chủ", "", "~/Pages/Index.aspx");
+			RouteTable.Routes.MapPageRoute("Tải Lên", "upload", "~/Pages/Upload.aspx");
+			RouteTable.Routes.MapPageRoute("Xem Video", "watch", "~/Pages/Watch.aspx");
+			RouteTable.Routes.MapPageRoute("Đăng Nhập", "login", "~/Pages/Login.aspx");
         }
     }
 }

@@ -1,8 +1,5 @@
 
 class Video {
-	/** @type {int?} */
-	id;
-
 	/** @type {string} */
 	name;
 
@@ -31,7 +28,6 @@ class Video {
 	uploaded;
 
 	constructor(
-		id,
 		name,
 		hash,
 		length,
@@ -42,7 +38,6 @@ class Video {
 		thumbnailType,
 		uploaded
 	) {
-		this.id = id;
 		this.name = name;
 		this.hash = hash;
 		this.length = length;
@@ -158,7 +153,6 @@ class Video {
 			url: `/api/video/update`,
 			method: "POST",
 			json: {
-				id: this.id,
 				hash: this.hash,
 				name: this.name,
 				description: this.description
@@ -237,7 +231,6 @@ class Video {
 	 */
 	static processResponse(response) {
 		return new Video(
-			response.id,
 			response.name,
 			response.hash,
 			response.length,

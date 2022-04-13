@@ -1,3 +1,5 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Watch.aspx.cs" Inherits="Vi2B.Pages.Watch" %>
+
 <!DOCTYPE html>
 <html>
     <head>
