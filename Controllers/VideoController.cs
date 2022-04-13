@@ -8,6 +8,7 @@ using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Http;
 using Vi2B.Objects;
+using Vi2B.Stores;
 
 namespace Vi2B.Controllers {
 	public class VideoController : ApiController {
@@ -20,8 +21,7 @@ namespace Vi2B.Controllers {
 		}
 
 		public class UpdateVideoModel {
-			public int? id { get; set; } = null;
-			public string hash { get; set; } = null;
+			public string hash { get; set; }
 			public string name { get; set; }
 			public string description { get; set; }
 		}
@@ -92,7 +92,7 @@ namespace Vi2B.Controllers {
 			video.hash = Utils.MD5(model.filename + Utils.RandomString(3));
 			video.length = model.length;
 			video.created = Utils.TimeStamp();
-			video.Save();
+			VideoStore.Add(video);
 
 			return video;
 		}
@@ -109,13 +109,13 @@ namespace Vi2B.Controllers {
 				if (!file.ContentType.StartsWith("video"))
 					return API.Response(Request, "Invalid Video File!", HttpStatusCode.BadRequest);
 
-				Video video = Video.Get(hash);
+				Video video = VideoStore.Get(hash);
 				var path = Config.DataRoot + "/videos/" + video.hash;
 				file.SaveAs(path);
 
 				video.videoType = file.ContentType;
 				video.uploaded = true;
-				video.Save();
+				VideoStore.Save();
 
 				result = API.Response(Request, "Video Uploaded Successfully!");
 			} else {
@@ -128,7 +128,7 @@ namespace Vi2B.Controllers {
 		[HttpGet]
 		[Route("api/video/fetch/{hash}")]
 		public HttpResponseMessage GetVideo(string hash) {
-			Video video = Video.Get(hash);
+			Video video = VideoStore.Get(hash);
 
 			var path = Config.DataRoot + "/videos/" + video.hash;
 			FileInfo fileInfo = new FileInfo(path);
@@ -201,7 +201,7 @@ namespace Vi2B.Controllers {
 		public HttpResponseMessage GetThumbnail(string hash) {
 			HttpResponseMessage result;
 
-			Video video = Video.Get(hash);
+			Video video = VideoStore.Get(hash);
 			var path = Config.DataRoot + "/thumbnails/" + video.hash;
 			FileStream stream = File.OpenRead(path);
 
@@ -224,13 +224,13 @@ namespace Vi2B.Controllers {
 				if (!file.ContentType.StartsWith("image"))
 					return API.Response(Request, "Invalid Image File!", HttpStatusCode.BadRequest);
 
-				Video video = Video.Get(hash);
+				Video video = VideoStore.Get(hash);
 				var path = Config.DataRoot + "/thumbnails/" + video.hash;
 				file.SaveAs(path);
 
 				video.thumbnailType = file.ContentType;
 				video.uploaded = true;
-				video.Save();
+				VideoStore.Save();
 
 				result = API.Response(Request, "Thumbnail Updated Successfully!");
 			} else {
@@ -245,13 +245,10 @@ namespace Vi2B.Controllers {
 		public HttpResponseMessage UpdateVideo([FromBody] UpdateVideoModel model) {
 			Video video;
 
-			if (model == null || (model.id == null && model.hash == null))
+			if (model == null || model.hash == null)
 				throw new ArgumentException("Body Data Is Empty Or Invalid!");
 
-			if (model.id != null)
-				video = Video.Get((int) model.id);
-			else
-				video = Video.Get(model.hash);
+			video = VideoStore.Get(model.hash);
 
 			if (model.name != null)
 				video.name = model.name;
@@ -259,28 +256,22 @@ namespace Vi2B.Controllers {
 			if (model.description != null)
 				video.description = model.description;
 
-			video.Save();
+			VideoStore.Save();
 			return API.Response(Request, "Video Info Updated Successfully!");
-		}
-
-		[HttpGet]
-		[Route("api/video/id/{id}")]
-		public Video Get(int id) {
-			return Video.Get(id);
 		}
 
 		[HttpGet]
 		[Route("api/video/{hash}")]
 		public Video Get(string hash) {
-			return Video.Get(hash);
+			return VideoStore.Get(hash);
 		}
 
 		[HttpDelete]
 		[Route("api/video/{hash}")]
 		public HttpResponseMessage Delete(string hash) {
-			Video video = Video.Get(hash);
+			Video video = VideoStore.Get(hash);
 
-			if (!video.Delete())
+			if (!VideoStore.Delete(video))
 				return API.Response(Request, "Cannot delete video!", HttpStatusCode.InternalServerError);
 
 			var videoFile = Config.DataRoot + "/videos/" + video.hash;
@@ -298,7 +289,7 @@ namespace Vi2B.Controllers {
 		[HttpGet]
 		[Route("api/videos")]
 		public List<Video> GetAll() {
-			return Video.GetAll();
+			return VideoStore.GetAll();
 		}
 	}
 }
