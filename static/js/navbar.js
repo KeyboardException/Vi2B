@@ -4,10 +4,13 @@ const navbar = {
 
 	/** @type {HTMLElement} */
 	container: undefined,
-
+	
 	menuShowing: false,
+	
+	/** @type {HTMLElement} */
+	right: undefined,
 
-	init() {
+	async init() {
 		if (!this.original)
 			return false;
 
@@ -20,9 +23,20 @@ const navbar = {
 					classes: "logo",
 					tagName: "a"
 				})
-			}},
+			}}
+		});
 
-			right: { tag: "span", class: "right", child: {
+		this.container.id = "navbar";
+		this.container.left.logo.container.href = "/";
+		this.original.parentElement.replaceChild(this.container, this.original);
+
+		try {
+			let response = await myajax({
+				url: "/api/session",
+				method: "GET"
+			});
+
+			this.right = makeTree("span", "right", {
 				upload: { tag: "a", href: "/upload", child: {
 					icon: { tag: "icon", data: { icon: "upload" } },
 				}},
@@ -52,16 +66,23 @@ const navbar = {
 						html: "(C) 2022 Team KeyboardException | <a>About Us</a> | <a>Github</a>"
 					}
 				}}
-			}}
-		});
+			});
 
-		this.addMenuItem({ name: "Đăng Xuất", icon: "signout", link: "/login" });
+			this.container.appendChild(this.right);
+			this.container.underlay.addEventListener("click", () => this.hideMenu());
+			this.right.profile.addEventListener("click", () => this.toggleMenu());
 
-		this.container.id = "navbar";
-		this.container.left.logo.container.href = "/";
-		this.container.underlay.addEventListener("click", () => this.hideMenu());
-		this.container.right.profile.addEventListener("click", () => this.toggleMenu());
-		this.original.parentElement.replaceChild(this.container, this.original);
+			this.addMenuItem({ name: "Đăng Xuất", icon: "signout", link: "/login" });
+		} catch(e) {
+			// Prob not logged in
+
+			this.right = makeTree("span", "right", {
+				login: { tag: "button", class: "text-btn", href: "/login", text: "ĐĂNG NHẬP" }
+			});
+
+			this.right.login.addEventListener("click", () => location.href = "/login");
+			this.container.appendChild(this.right);
+		}
 	},
 
 	addMenuItem({ name, icon, link, sub } = {}) {
@@ -77,9 +98,9 @@ const navbar = {
 		});
 
 		item.href = link || "#";
-		this.container.right.menu.insertBefore(
+		this.right.menu.insertBefore(
 			item,
-			this.container.right.menu.sep.nextSibling);
+			this.right.menu.sep.nextSibling);
 		
 		return item;
 	},
@@ -92,13 +113,13 @@ const navbar = {
 	},
 
 	showMenu() {
-		this.container.right.menu.classList.add("show");
+		this.right.menu.classList.add("show");
 		this.container.underlay.classList.add("show");
 		this.menuShowing = true;
 	},
 
 	hideMenu() {
-		this.container.right.menu.classList.remove("show");
+		this.right.menu.classList.remove("show");
 		this.container.underlay.classList.remove("show");
 		this.menuShowing = false;
 	}

@@ -14,4 +14,4 @@ namespace Vi2B {
 			return API.Response(Request, "PONG");
 		}
 	}
-} 
+}

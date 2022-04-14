@@ -5,8 +5,11 @@ using System.Web.Http;
 using System.Web.Routing;
 
 namespace Vi2B {
-    public static class WebApiConfig {
-        public static void Register(HttpConfiguration config) {
+	public static class WebApiConfig {
+		public static string UrlPrefix { get { return "api"; } }
+		public static string UrlPrefixRelative { get { return "~/api"; } }
+
+		public static void Register(HttpConfiguration config) {
             // Web API configuration and services
 
             // Web API routes

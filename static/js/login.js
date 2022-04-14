@@ -51,10 +51,6 @@ const login = {
 			forms: { tag: "div", class: "forms" }
 		});
 
-		let footer = document.createElement("div");
-		footer.classList.add("footer");
-		footer.innerText = `(c) Vi2B. All Right Reserved`;
-
 		// Setup form
 		if (this.params.action === "register") {
 			this.changeForm(this.registerStartForm, {
@@ -71,7 +67,7 @@ const login = {
 			});
 		}
 
-		this.left.append(logo.container, this.container, footer);
+		this.left.append(logo.container, this.container);
 		this.reset();
 	},
 
@@ -112,24 +108,6 @@ const login = {
 			}},
 
 			alternative: { tag: "div", class: "alternative", child: {
-				google: createButton("Đăng Nhập Bằng Google", {
-					color: "darkGreen",
-					icon: "google",
-					style: "round",
-					complex: true,
-					align: "right",
-					disabled: true
-				}),
-
-				facebook: createButton("Đăng Nhập Bằng Facebook", {
-					color: "darkBlue",
-					icon: "facebook",
-					style: "round",
-					complex: true,
-					align: "right",
-					disabled: true
-				}),
-
 				register: createButton("Đăng Kí Tài Khoản Mới", {
 					color: "purple",
 					icon: "user",
@@ -241,24 +219,6 @@ const login = {
 				type: "text",
 				id: "registerName",
 				label: "tên hiển thị",
-				required: true,
-				autofill: false,
-				animated: true
-			}),
-
-			emailInput: createInput({
-				type: "email",
-				id: "registerEmail",
-				label: "email",
-				required: true,
-				autofill: false,
-				animated: true
-			}),
-
-			phoneInput: createInput({
-				type: "text",
-				id: "registerPhone",
-				label: "số điện thoại",
 				required: true,
 				autofill: false,
 				animated: true
@@ -449,19 +409,11 @@ const login = {
 		}
 
 		try {
-			// let response = await myajax({
-			// 	url: "/api/login",
-			// 	method: "POST",
-			// 	form: { username, password }
-			// });
-
-			await delayAsync(1000);
-
-			if (username !== "admin")
-				throw { data: { code: 1 } }
-
-			if (password !== "admin")
-				throw { data: { code: 2 } }
+			let response = await myajax({
+				url: "/api/login",
+				method: "POST",
+				json: { username, password }
+			});
 
 			this.container.note.group.style.display = null;
 			this.container.note.set({
@@ -470,14 +422,14 @@ const login = {
 			});
 
 			console.log(response);
-			location.href = response.data.redirect;
+			location.href = "/";
 		} catch(e) {
 			this.loginForm.buttons.submit.loading(false);
 			enableInputs(this.loginForm);
 
 			// TODO: change code
-			switch (e.data.code) {
-				case 1:
+			switch (e.data.status) {
+				case 404:
 					this.loginForm.usernameInput.input.value = "";
 					this.loginForm.passwordInput.input.value = "";
 					this.loginForm.usernameInput.input.focus();
@@ -486,7 +438,7 @@ const login = {
 					});
 					break;
 			
-				case 2:
+				case 403:
 					this.loginForm.passwordInput.input.value = "";
 					this.loginForm.passwordInput.input.focus();
 					this.loginForm.passwordInput.set({
@@ -496,7 +448,7 @@ const login = {
 
 				default:
 					this.container.note.group.style.display = null;
-					this.container.note.set({ message: e.data.description });
+					this.container.note.set({ message: e.data.ExceptionMessage || e.data.description });
 					break;
 			}
 		}
@@ -518,14 +470,10 @@ const login = {
 		}
 
 		try {
-			// await myajax({
-			// 	url: "/api/register",
-			// 	method: "POST",
-			// 	form: {
-			// 		action: "validate",
-			// 		username
-			// 	}
-			// });
+			await myajax({
+				url: `/api/validate/${username}`,
+				method: "GET"
+			});
 
 			// Switch to main register form.
 			this.registerMainForm.username.value = username;
@@ -534,7 +482,7 @@ const login = {
 			});
 		} catch(e) {
 			// TODO: change code
-			if (e.data.code === 102 || e.data.code === 103) {
+			if (e.data.code === 403) {
 				this.registerStartForm.usernameInput.set({
 					message: e.data.description
 				});
@@ -542,7 +490,7 @@ const login = {
 				this.registerStartForm.usernameInput.input.focus();
 			} else {
 				this.container.note.group.style.display = null;
-				this.container.note.set({ message: e.data.description });
+				this.container.note.set({ message: e.data.ExceptionMessage || e.data.description });
 			}
 		}
 
@@ -558,26 +506,7 @@ const login = {
 		let data = {
 			username: this.registerMainForm.username.value.trim(),
 			name: this.registerMainForm.registerName.value.trim(),
-			email: this.registerMainForm.registerEmail.value.trim(),
-			phone: this.registerMainForm.registerPhone.value.trim(),
 			password: this.registerMainForm.registerPassword.value.trim()
-		}
-
-		// Validate input
-		if (!/^\S+@\S+\.\S{2,6}$/.test(data.email)) {
-			this.registerMainForm.emailInput.set({
-				message: "Email không hợp lệ!"
-			});
-
-			valid = false;
-		}
-
-		if (!/^0[0-9]{9,11}$/.test(data.phone)) {
-			this.registerMainForm.phoneInput.set({
-				message: "Số điện thoại không hợp lệ!"
-			});
-
-			valid = false;
 		}
 
 		if (data.password !== this.registerMainForm.registerConfirmPassword.value) {
@@ -595,10 +524,7 @@ const login = {
 				await myajax({
 					url: "/api/register",
 					method: "POST",
-					form: {
-						action: "register",
-						...data
-					}
+					json: data
 				});
 
 				this.container.note.group.style.display = null;
@@ -610,7 +536,7 @@ const login = {
 				location.href = "/";
 			} catch(e) {
 				this.container.note.group.style.display = null;
-				this.container.note.set({ message: e.data.description });
+				this.container.note.set({ message: e.data.ExceptionMessage || e.data.description });
 			}
 			
 			this.loading = false;

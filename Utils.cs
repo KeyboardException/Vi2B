@@ -17,6 +17,14 @@ namespace Vi2B {
 				new KeyValuePair<string, int>("giây", 1)
 			};
 
+		private static readonly Dictionary<char, string> SvgColors = new Dictionary<char, string>() {
+			{ 'A', "#5A876F" }, { 'B', "#B2B7BB" }, { 'C', "#6FA9AB" }, { 'D', "#F5AF29" }, { 'E', "#0088B9" }, { 'F', "#F18536" },
+			{ 'G', "#D93A37" }, { 'H', "#B3BC50" }, { 'I', "#5B9BBD" }, { 'J', "#F5878C" }, { 'K', "#9B89B5" }, { 'L', "#407887" },
+			{ 'M', "#9B89B5" }, { 'N', "#5A876F" }, { 'O', "#D33F33" }, { 'P', "#D33F33" }, { 'Q', "#F1B126" }, { 'R', "#0087BF" },
+			{ 'S', "#F18536" }, { 'T', "#0087BF" }, { 'U', "#B2B7BB" }, { 'V', "#72ACAE" }, { 'W', "#9B89B5" }, { 'X', "#5A876F" },
+			{ 'Y', "#EEB424" }, { 'Z', "#407887" }
+		};
+
 		public static DateTime UnixToDateTime(int time) {
             // Unix timestamp is seconds past epoch
             DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
@@ -31,6 +39,21 @@ namespace Vi2B {
 
 		public static int TimeStamp() {
 			return DateTimeToUnix(DateTime.Now);
+		}
+
+		public static String SvgAvatar(string name, int size = 200) {
+			var letter = Char.ToUpper(name[0]);
+			var color = (SvgColors.ContainsKey(letter))
+				? SvgColors[letter]
+				: "#846B32";
+
+			HtmlTemplate templete = new HtmlTemplate("SvgIcon");
+			return templete.Render(new {
+				size = size.ToString(),
+				fontsize = ((size / 2) + 20).ToString(),
+				color,
+				letter
+			});
 		}
 
 		public static string MD5(string input) {
