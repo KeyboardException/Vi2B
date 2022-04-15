@@ -362,7 +362,7 @@ const upload = {
 				}
 			});
 
-			this.record = Video.processResponse(response);
+			this.record = Video.processResponse(response.data);
 		} catch(e) {
 			this.log("ERRR", e);
 			this.uploadForm.choose.dataset.triColor = "red";
@@ -375,7 +375,7 @@ const upload = {
 		this.updateForm.right.thumbnail.image.src = URL.createObjectURL(meta.thumbnail);
 		this.updateForm.left.titleInput.input.value = this.video.name;
 		this.updateForm.right.link.value.innerText = this.record.getURL();
-		this.updateForm.right.link.value.href = this.record.getThumbURL();
+		this.updateForm.right.link.value.href = this.record.getURL();
 		this.updateForm.right.filename.value.innerText = this.video.name;
 		this.updateForm.right.size.value.innerText = convertSize(this.video.size);
 

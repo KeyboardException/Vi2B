@@ -60,5 +60,27 @@ namespace Vi2B.Stores {
 			Save();
 			return true;
 		}
+
+		public static List<Video> GetNextVideos(Video current, int limit = 20) {
+			List<Video> list = new List<Video>();
+			Dictionary<int, int> randoms = new Dictionary<int, int>();
+
+			limit = Math.Min(limit, List.Count - 1);
+
+			while (randoms.Count < limit) {
+				int randomInt = new Random().Next(limit);
+
+				try {
+					randoms.Add(randomInt, randomInt);
+				} catch (ArgumentException aex) {
+					// We can assume this element exists in the dictonary already.
+				}
+			}
+
+			foreach (int key in randoms.Keys)
+				list.Add(List[randoms[key]]);
+
+			return list;
+		}
 	}
 }

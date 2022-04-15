@@ -42,8 +42,9 @@ namespace Vi2B.Objects {
 			return UnixToDateTime(created);
 		}
 
-		public String Render() {
+		public String RenderCard() {
 			HtmlTemplate template = new HtmlTemplate("VideoCard");
+			User user = GetUser();
 
 			return template.Render(new {
 				thumbnail = LazyLoad(new LazyLoadOptions() {
@@ -56,14 +57,37 @@ namespace Vi2B.Objects {
 				}),
 
 				avatar = LazyLoad(new LazyLoadOptions() {
-					url = "/static/img/avatar.svg",
+					url = user.GetAvatar(),
 					classes = new string[] { "avatar" }
 				}),
 
 				length = ParseTime(length),
 				url = GetVideoURL(),
 				this.name,
-				channel = "Admin",
+				channel = user.name,
+				views = views.ToString(),
+				uploaded = ReadableTime(DateTimeToUnix(DateTime.Now) - created)
+			});
+		}
+
+		public String RenderList() {
+			HtmlTemplate template = new HtmlTemplate("VideoList");
+			User user = GetUser();
+
+			return template.Render(new {
+				thumbnail = LazyLoad(new LazyLoadOptions() {
+					url = GetThumbURL(),
+					classes = new string[] { "thumbnail" },
+					tag = "a",
+					attributes = new {
+						href = GetVideoURL()
+					}
+				}),
+
+				length = ParseTime(length),
+				url = GetVideoURL(),
+				this.name,
+				channel = user.name,
 				views = views.ToString(),
 				uploaded = ReadableTime(DateTimeToUnix(DateTime.Now) - created)
 			});

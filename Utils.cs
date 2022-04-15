@@ -52,7 +52,7 @@ namespace Vi2B {
 				size = size.ToString(),
 				fontsize = ((size / 2) + 20).ToString(),
 				color,
-				letter
+				letter = letter.ToString()
 			});
 		}
 

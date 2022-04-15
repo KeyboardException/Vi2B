@@ -20,6 +20,11 @@ namespace Vi2B {
 			return (expire >= TimeStamp());
 		}
 
+		public void Destroy() {
+			SessionList.Remove(token);
+			expire = TimeStamp();
+		}
+
 		public static Session Create(User user) {
 			Session session = new Session();
 			session.user = user;
@@ -48,6 +53,18 @@ namespace Vi2B {
 				if (token != null)
 					break;
 			}
+
+			if (token == null || !SessionList.ContainsKey(token))
+				return null;
+
+			return SessionList[token];
+		}
+
+		public static Session Get(HttpRequest request) {
+			if (request.Cookies["Session"] == null)
+				return null;
+
+			string token = request.Cookies["Session"].Value;
 
 			if (token == null || !SessionList.ContainsKey(token))
 				return null;

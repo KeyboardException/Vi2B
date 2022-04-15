@@ -10,6 +10,9 @@ const navbar = {
 	/** @type {HTMLElement} */
 	right: undefined,
 
+	/** @type {Session} */
+	session: undefined,
+
 	async init() {
 		if (!this.original)
 			return false;
@@ -36,24 +39,26 @@ const navbar = {
 				method: "GET"
 			});
 
+			this.session = Session.processResponse(response.data);
+
 			this.right = makeTree("span", "right", {
 				upload: { tag: "a", href: "/upload", child: {
 					icon: { tag: "icon", data: { icon: "upload" } },
 				}},
 
 				profile: { tag: "span", class: "profile", child: {
-					displayName: { tag: "span", class: "name", text: "Admin" },
-					avatar: new lazyload({ source: "/static/img/avatar.svg", classes: "avatar" })
+					displayName: { tag: "span", class: "name", text: this.session.user.name },
+					avatar: new lazyload({ source: this.session.user.getAvatar(), classes: "avatar" })
 				}},
 
 				menu: { tag: "div", class: "menu", child: {
 					header: { tag: "a", class: ["item", "header"], child: {
 						left: { tag: "div", class: "left", child: {
-							avatar: new lazyload({ source: "/static/img/avatar.svg", classes: "avatar" })
+							avatar: new lazyload({ source: this.session.user.getAvatar(), classes: "avatar" })
 						}},
 
 						right: { tag: "div", class: "right", child: {
-							headTitle: { tag: "div", class: "title", text: "Admin" },
+							headTitle: { tag: "div", class: "title", text: this.session.user.name },
 							sub: { tag: "div", class: "sub", text: "Kênh của bạn" }
 						}}
 					}},
@@ -72,7 +77,7 @@ const navbar = {
 			this.container.underlay.addEventListener("click", () => this.hideMenu());
 			this.right.profile.addEventListener("click", () => this.toggleMenu());
 
-			this.addMenuItem({ name: "Đăng Xuất", icon: "signout", link: "/login" });
+			this.addMenuItem({ name: "Đăng Xuất", icon: "signout", link: "/logout" });
 		} catch(e) {
 			// Prob not logged in
 

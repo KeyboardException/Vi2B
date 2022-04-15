@@ -19,6 +19,7 @@ namespace Vi2B {
 			RouteTable.Routes.MapPageRoute("Tải Lên", "upload", "~/Pages/Upload.aspx");
 			RouteTable.Routes.MapPageRoute("Xem Video", "watch", "~/Pages/Watch.aspx");
 			RouteTable.Routes.MapPageRoute("Đăng Nhập", "login", "~/Pages/Login.aspx");
-        }
+			RouteTable.Routes.MapPageRoute("Đăng Xuất", "logout", "~/Pages/Logout.aspx");
+		}
     }
 }

@@ -83,46 +83,53 @@ namespace Vi2B.Controllers {
 
 		[HttpPost]
 		[Route("api/video/create")]
-		public Video CreateVideo([FromBody] CreateVideoModel model) {
-			if (model == null || model.filename == null)
-				throw new ArgumentException("Unspecified filename and length!");
+		public HttpResponseMessage CreateVideo([FromBody] CreateVideoModel model) {
+			if (model == null || model.filename == null || model.length == null)
+				return API.Response(Request, "Body trống hoặc thiếu trường cần thiết!", HttpStatusCode.BadRequest);
+
+			Session session = Session.Get(Request);
+			if (session == null)
+				return API.Response(Request, "Bạn chưa đăng nhập!", HttpStatusCode.Forbidden);
 
 			Video video = new Video();
 			video.name = model.filename;
 			video.hash = Utils.MD5(model.filename + Utils.RandomString(3));
 			video.length = model.length;
 			video.created = Utils.TimeStamp();
+			video.username = session.user.username;
 			VideoStore.Add(video);
 
-			return video;
+			return API.Response(Request, "Tạo video mới thành công!", data: video);
 		}
 
 		[HttpPost]
 		[Route("api/video/upload/{hash}")]
 		public HttpResponseMessage UploadVideo(string hash) {
-			HttpResponseMessage result;
 			var request = HttpContext.Current.Request;
 
-			if (request.Files["video"] != null) {
-				var file = request.Files["video"];
+			if (request.Files["video"] == null)
+				return API.Response(Request, "No Video Found In This Request!", HttpStatusCode.BadRequest);
 
-				if (!file.ContentType.StartsWith("video"))
-					return API.Response(Request, "Invalid Video File!", HttpStatusCode.BadRequest);
+			Session session = Session.Get(Request);
+			if (session == null)
+				return API.Response(Request, "Bạn chưa đăng nhập!", HttpStatusCode.Forbidden);
 
-				Video video = VideoStore.Get(hash);
-				var path = Config.DataRoot + "/videos/" + video.hash;
-				file.SaveAs(path);
+			var file = request.Files["video"];
+			if (!file.ContentType.StartsWith("video"))
+				return API.Response(Request, "Invalid Video File!", HttpStatusCode.BadRequest);
 
-				video.videoType = file.ContentType;
-				video.uploaded = true;
-				VideoStore.Save();
+			Video video = VideoStore.Get(hash);
+			if (video.username != session.user.username)
+				return API.Response(Request, "Video này không thuộc về bạn!", HttpStatusCode.Forbidden);
 
-				result = API.Response(Request, "Video Uploaded Successfully!");
-			} else {
-				result = API.Response(Request, "No Video Found In This Request!", HttpStatusCode.BadRequest);
-			}
+			var path = Config.DataRoot + "/videos/" + video.hash;
+			file.SaveAs(path);
 
-			return result;
+			video.videoType = file.ContentType;
+			video.uploaded = true;
+			VideoStore.Save();
+
+			return API.Response(Request, "Tải video lên thành công!");
 		}
 
 		[HttpGet]
@@ -215,40 +222,46 @@ namespace Vi2B.Controllers {
 		[HttpPost]
 		[Route("api/video/thumbnail/{hash}")]
 		public HttpResponseMessage UpdateThumbnail(string hash) {
-			HttpResponseMessage result;
 			var request = HttpContext.Current.Request;
 
-			if (request.Files["thumbnail"] != null) {
-				var file = request.Files["thumbnail"];
+			if (request.Files["thumbnail"] == null)
+				return API.Response(Request, "No Thumbnail Found In This Request!", HttpStatusCode.BadRequest);
 
-				if (!file.ContentType.StartsWith("image"))
-					return API.Response(Request, "Invalid Image File!", HttpStatusCode.BadRequest);
+			var file = request.Files["thumbnail"];
+			if (!file.ContentType.StartsWith("image"))
+				return API.Response(Request, "Invalid Image File!", HttpStatusCode.BadRequest);
 
-				Video video = VideoStore.Get(hash);
-				var path = Config.DataRoot + "/thumbnails/" + video.hash;
-				file.SaveAs(path);
+			Session session = Session.Get(Request);
+			if (session == null)
+				return API.Response(Request, "Bạn chưa đăng nhập!", HttpStatusCode.Forbidden);
 
-				video.thumbnailType = file.ContentType;
-				video.uploaded = true;
-				VideoStore.Save();
+			Video video = VideoStore.Get(hash);
+			if (video.username != session.user.username)
+				return API.Response(Request, "Video này không thuộc về bạn!", HttpStatusCode.Forbidden);
 
-				result = API.Response(Request, "Thumbnail Updated Successfully!");
-			} else {
-				result = API.Response(Request, "No Thumbnail Found In This Request!", HttpStatusCode.BadRequest);
-			}
+			var path = Config.DataRoot + "/thumbnails/" + video.hash;
+			file.SaveAs(path);
 
-			return result;
+			video.thumbnailType = file.ContentType;
+			video.uploaded = true;
+			VideoStore.Save();
+
+			return API.Response(Request, "Thumbnail Updated Successfully!");
 		}
 
 		[HttpPost]
 		[Route("api/video/update")]
 		public HttpResponseMessage UpdateVideo([FromBody] UpdateVideoModel model) {
-			Video video;
-
 			if (model == null || model.hash == null)
 				throw new ArgumentException("Body Data Is Empty Or Invalid!");
 
-			video = VideoStore.Get(model.hash);
+			Session session = Session.Get(Request);
+			if (session == null)
+				return API.Response(Request, "Bạn chưa đăng nhập!", HttpStatusCode.Forbidden);
+
+			var video = VideoStore.Get(model.hash);
+			if (video.username != session.user.username)
+				return API.Response(Request, "Video này không thuộc về bạn!", HttpStatusCode.Forbidden);
 
 			if (model.name != null)
 				video.name = model.name;
@@ -262,14 +275,20 @@ namespace Vi2B.Controllers {
 
 		[HttpGet]
 		[Route("api/video/{hash}")]
-		public Video Get(string hash) {
-			return VideoStore.Get(hash);
+		public HttpResponseMessage Get(string hash) {
+			return API.Response(Request, "Success!", data: VideoStore.Get(hash));
 		}
 
 		[HttpDelete]
 		[Route("api/video/{hash}")]
 		public HttpResponseMessage Delete(string hash) {
-			Video video = VideoStore.Get(hash);
+			Session session = Session.Get(Request);
+			if (session == null)
+				return API.Response(Request, "Bạn chưa đăng nhập!", HttpStatusCode.Forbidden);
+
+			var video = VideoStore.Get(hash);
+			if (video.username != session.user.username)
+				return API.Response(Request, "Video này không thuộc về bạn!", HttpStatusCode.Forbidden);
 
 			if (!VideoStore.Delete(video))
 				return API.Response(Request, "Cannot delete video!", HttpStatusCode.InternalServerError);
@@ -288,8 +307,8 @@ namespace Vi2B.Controllers {
 
 		[HttpGet]
 		[Route("api/videos")]
-		public List<Video> GetAll() {
-			return VideoStore.GetAll();
+		public HttpResponseMessage GetAll() {
+			return API.Response(Request, "Success!", data: VideoStore.GetAll());
 		}
 	}
 }

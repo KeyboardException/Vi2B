@@ -13,7 +13,7 @@ namespace Vi2B.Pages {
 			var videos = VideoStore.GetAll();
 
 			foreach (var video in videos)
-				html += video.Render();
+				html += video.RenderCard();
 
 			VideoCards.InnerHtml = html;
 		}

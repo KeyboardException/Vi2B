@@ -13,8 +13,19 @@
 
     <body>
         <nav id="navbar"></nav>
+
         <div id="app">
-            <div class="spinner"></div>
+            <span class="view">
+                <span class="main">
+                    <div id="VideoPlayer"></div>
+    
+                    <div id="VideoName" class="name" runat="server"></div>
+                    <div id="VideoInfo" class="info" runat="server"></div>
+                    <div id="VideoAuthor" class="author" runat="server"></div>
+                </span>
+                
+                <span id="NextVideos" class="next" runat="server"></span>
+            </span>
         </div>
         
         <!-- #include file="~/Fragments/footer.html" -->

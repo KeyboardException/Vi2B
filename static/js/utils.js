@@ -180,20 +180,6 @@ class Video {
 	}
 
 	/**
-	 * Get video with specified ID
-	 * @param	{Number}	id 
-	 * @returns {Promise<Video>}
-	 */
-	static async getVideo(id) {
-		let response = await myajax({
-			url: `/api/video/id/${id}`,
-			method: "GET"
-		});
-
-		return Video.processResponse(response);
-	}
-
-	/**
 	 * Get video with specified Hash
 	 * @param	{String}	hash
 	 * @returns {Promise<Video>}
@@ -204,7 +190,7 @@ class Video {
 			method: "GET"
 		});
 
-		return Video.processResponse(response);
+		return Video.processResponse(response.data);
 	}
 
 	/**
@@ -219,7 +205,7 @@ class Video {
 
 		let videos = Array();
 
-		for (let item of response)
+		for (let item of response.data)
 			videos.push(Video.processResponse(item));
 
 		return videos;
@@ -240,6 +226,57 @@ class Video {
 			response.videoType,
 			response.thumbnailType,
 			response.uploaded
+		);
+	}
+}
+
+class User {
+	/** @type {String} */
+	username;
+
+	/** @type {String} */
+	name;
+
+	constructor(username, name) {
+		this.username = username;
+		this.name = name;
+	}
+
+	getAvatar() {
+		return `/api/avatar/${this.username}`;
+	}
+
+	static processResponse(response) {
+		return new User(response.username, response.name);
+	}
+}
+
+class Session {
+	/** @type {User} */
+	user;
+
+	/** @type {String} */
+	token;
+
+	/** @type {Number} */
+	created;
+
+	/** @type {Number} */
+	expire;
+
+	constructor(user, token, created, expire) {
+		this.user = user;
+		this.token = token;
+		this.created = created;
+		this.expire = expire;
+	}
+
+	static processResponse(response) {
+		return new Session(
+			User.processResponse(response.user),
+			response.token,
+			response.created,
+			response.expire
 		);
 	}
 }

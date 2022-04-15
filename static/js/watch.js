@@ -1,9 +1,7 @@
 ﻿
 const watch = {
 	container: $("#app"),
-
-	/** @type {HTMLDivElement} */
-	view: undefined,
+	actions: $("#VideoActions"),
 
 	/** @type {VideoJS} */
 	videoJS: undefined,
@@ -13,6 +11,15 @@ const watch = {
 	
 	/** @type {Video[]} */
 	next: undefined,
+
+	/** @type {HTMLButtonElement} */
+	deleteButton: undefined,
+
+	/** @type {HTMLButtonElement} */
+	editButton: undefined,
+
+	/** @type {HTMLButtonElement} */
+	subscribeButton: undefined,
 
 	async init() {
 		popup.init();
@@ -27,114 +34,48 @@ const watch = {
 
 		try {
 			this.video = await Video.getByHash(hash);
-			this.next = await Video.getAllVideos();
 		} catch(e) {
 			this.log("ERRR", e);
 			location.href = "/";
 			return false;
 		}
 
-		this.view = makeTree("div", "view", {
-			main: { tag: "span", class: "main", child: {
-				player: { tag: "div", class: "player" },
-
-				name: { tag: "div", class: "name", text: this.video.name },
-				info: { tag: "div", class: "info", child: {
-					meta: { tag: "span", class: "meta", child: {
-						views: { tag: "span", class: "views", text: `${this.video.views} lượt xem` },
-						dot: { tag: "dot" },
-
-						uploaded: {
-							tag: "span",
-							class: "uploaded",
-							text: humanReadableTime(new Date(this.video.created * 1000), {
-								onlyDate: true
-							})
-						}
-					}},
-
-					menu: { tag: "span", class: "menu", child: {
-						likes: { tag: "span", class: "likes", child: {
-							like: { tag: "span", class: "like", child: {
-								icon: { tag: "icon", data: { icon: "thumbUp" } },
-								value: { tag: "span", class: "value", text: "0" }
-							}},
-
-							dislike: { tag: "span", class: "dislike", child: {
-								icon: { tag: "icon", data: { icon: "thumbDown" } },
-								value: { tag: "span", class: "value", text: "0" }
-							}},
-
-							ratio: { tag: "div", class: "ratio", child: {
-								bar: { tag: "div", class: "bar" }
-							}}
-						}},
-
-						share: { tag: "span", class: ["button", "share"], child: {
-							icon: { tag: "icon", data: { icon: "share" } },
-							value: { tag: "span", class: "value", text: "CHIA SẺ" }
-						}}
-					}}
-				}},
-
-				author: { tag: "div", class: "author", child: {
-					top: { tag: "div", class: "top", child: {
-						channel: { tag: "span", class: "channel", child: {
-							avatar: new lazyload({ source: `/static/img/avatar.svg`, classes: "avatar" }),
-
-							info: { tag: "span", class: "info", child: {
-								name: { tag: "div", class: "name", text: "Admin" },
-								subs: { tag: "div", class: "subs", text: "0 người đăng kí" }
-							}}
-						}},
-
-						buttons: { tag: "span", class: "buttons", child: {
-							delete: createButton("XÓA VIDEO", {
-								color: "pink",
-								style: "round",
-								complex: true,
-								icon: "trash"
-							}),
-
-							edit: createButton("", {
-								color: "blue",
-								style: "round",
-								complex: true,
-								icon: "pencil",
-								disabled: true
-							}),
-
-							subscribe: createButton("ĐĂNG KÍ", {
-								color: "red",
-								style: "round",
-								complex: true
-							})
-						}}
-					}},
-
-					description: { tag: "div", class: "description", text: this.video.description }
-				}}
-			}},
-
-			next: { tag: "span", class: "next" }
-		});
-
-		this.videoJS = new VideoJS(this.view.main.player);
+		this.videoJS = new VideoJS($("#VideoPlayer"));
 		this.videoJS.setup({
 			src: this.video.getVideoURL(),
 			autoPlay: true
 		});
 
-		emptyNode(this.container);
-		new Scrollable(this.container, { content: this.view });
+		if (navbar.session) {
+			this.deleteButton = createButton("", {
+				color: "pink",
+				style: "round",
+				complex: true,
+				icon: "trash"
+			});
+	
+			this.editButton = createButton("", {
+				color: "blue",
+				style: "round",
+				complex: true,
+				icon: "pencil",
+				disabled: true
+			});
 
-		for (let item of this.next)
-			this.view.next.appendChild(item.renderList());
+			this.deleteButton.addEventListener("click", () => this.delete());
+			this.actions.append(this.deleteButton, this.editButton);
+		}
 
-		// Attach events
-		this.view.main.author.top.buttons.delete
-			.addEventListener("click", () => this.delete());
+		this.subscribeButton = createButton("ĐĂNG KÍ", {
+			color: "red",
+			style: "round",
+			classes: "subscribe",
+			complex: true
+		});
 
+		this.actions.append(this.subscribeButton);
+
+		new Scrollable(this.container, { content: this.container.firstElementChild });
 		this.container.appendChild(this.view);
 	},
 
@@ -156,7 +97,7 @@ const watch = {
 		if (confirm !== "confirm")
 			return;
 
-		this.view.main.author.top.buttons.delete.loading(true);
+		this.deleteButton.loading(true);
 
 		try {
 			await this.video.delete();
@@ -164,7 +105,7 @@ const watch = {
 			errorHandler(e);
 		}
 
-		this.view.main.author.top.buttons.delete.loading(false);
+		this.deleteButton.loading(false);
 		location.href = "/";
 	}
 }

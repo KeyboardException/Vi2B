@@ -23,7 +23,7 @@ namespace Vi2B {
 				result.Content.Headers.ContentType = new MediaTypeHeaderValue("image/png");
 			} else {
 				result.Content = new StringContent(Utils.SvgAvatar(user));
-				result.Content.Headers.ContentType = new MediaTypeHeaderValue("image/svg");
+				result.Content.Headers.ContentType = new MediaTypeHeaderValue("image/svg+xml");
 			}
 
 			return result;

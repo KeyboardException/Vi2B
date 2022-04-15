@@ -20,6 +20,10 @@ namespace Vi2B.Objects {
 			return user;
 		}
 
+		public string GetAvatar() {
+			return "/api/avatar/" + username;
+		}
+
 		protected static string HashPassword(string password) {
 			// Create salt
 			byte[] salt;
