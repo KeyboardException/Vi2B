@@ -79,7 +79,7 @@ const navbar = {
 				}},
 
 				menu: { tag: "div", class: "menu", child: {
-					header: { tag: "a", class: ["item", "header"], child: {
+					header: { tag: "a", href: "/personal", class: ["item", "header"], child: {
 						left: { tag: "div", class: "left", child: {
 							avatar: new lazyload({ source: this.session.user.getAvatar(), classes: "avatar" })
 						}},

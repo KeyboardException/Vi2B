@@ -552,6 +552,7 @@
     <Content Include="Pages\Index.aspx" />
     <Content Include="Pages\Login.aspx" />
     <Content Include="Pages\Logout.aspx" />
+    <Content Include="Pages\Personal.aspx" />
     <Content Include="Pages\Search.aspx" />
     <Content Include="Pages\Watch.aspx" />
     <Content Include="static\css\default.css" />
@@ -612,6 +613,13 @@
     </Compile>
     <Compile Include="Pages\Logout.aspx.designer.cs">
       <DependentUpon>Logout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Personal.aspx.cs">
+      <DependentUpon>Personal.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Personal.aspx.designer.cs">
+      <DependentUpon>Personal.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Search.aspx.cs">
       <DependentUpon>Search.aspx</DependentUpon>
