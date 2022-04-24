@@ -21,14 +21,18 @@ namespace Vi2B.Stores {
 		}
 
 		public static void Save() {
-			using (Stream stream = File.Open(FILE_PATH, FileMode.Create)) {
-				var bFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-				bFormatter.Serialize(stream, List);
+			try {
+				using (FileStream stream = new FileStream(FILE_PATH, FileMode.Create, FileAccess.Write)) {
+					var bFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+					bFormatter.Serialize(stream, List);
+				}
+			} catch (Exception e) {
+				Console.WriteLine("Cannot Save Video Store! " + e.Message);
 			}
 		}
 
 		public static void Load() {
-			using (Stream stream = File.Open(FILE_PATH, FileMode.Open)) {
+			using (FileStream stream = new FileStream(FILE_PATH, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)) {
 				var bFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
 				List = (List<Video>) bFormatter.Deserialize(stream);
 			}
