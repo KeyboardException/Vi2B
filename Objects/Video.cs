@@ -27,6 +27,14 @@ namespace Vi2B.Objects {
 			if (user == null)
 				user = UserStore.Get(username);
 
+			// Người dùng cho video này không tồn tại, tạo tài khoản
+			// giả fallback cho tài khoản.
+			if (user == null) {
+				user = new User();
+				user.username = username;
+				user.name = "Người Dùng Không Tồn Tại (" + username + ")";
+			}
+
 			return user;
 		}
 

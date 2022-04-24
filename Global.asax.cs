@@ -17,6 +17,12 @@ namespace Vi2B {
             GlobalConfiguration.Configure(WebApiConfig.Register);
         }
 
+		protected void Application_BeginRequest(object sender, EventArgs e) {
+			Console.WriteLine("Reloading Data");
+			UserStore.Load();
+			VideoStore.Load();
+		}
+
 		protected void Application_PostAuthorizeRequest() {
 			if (IsWebApiRequest()) {
 				HttpContext.Current.SetSessionStateBehavior(SessionStateBehavior.Required);
