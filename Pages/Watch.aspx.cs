@@ -18,6 +18,9 @@ namespace Vi2B.Pages {
 			if (video == null)
 				Response.Redirect("/");
 
+			video.views += 1;
+			VideoStore.Save();
+
 			var author = video.GetUser();
 			VideoName.InnerText = video.name;
 

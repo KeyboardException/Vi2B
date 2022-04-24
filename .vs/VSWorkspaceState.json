@@ -1,6 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\App_Start",
+    "\\assets",
+    "\\assets\\css",
+    "\\Objects"
   ],
   "SelectedNode": "\\Vi2B.sln",
   "PreviewInSolutionExplorer": false
