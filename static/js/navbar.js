@@ -42,7 +42,7 @@ const navbar = {
 					},
 
 					submitButton: createButton("", {
-						color: "blue",
+						color: "redPink",
 						style: "round",
 						icon: "search",
 						type: "submit",

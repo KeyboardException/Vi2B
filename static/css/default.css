@@ -1,3 +1,14 @@
+:root {
+	--color-red-pink: #e83237;
+}
+
+.triBg[data-tri-color = "redPink"] > .triBgContainer {
+	background-color: var(--color-red-pink);
+}
+
+.triBg[data-tri-color = "redPink"] > .triBgContainer > span {
+	border-bottom-color: var(--color-red-pink);
+}
 
 body {
 	--global-background: rgb(235, 235, 235);
