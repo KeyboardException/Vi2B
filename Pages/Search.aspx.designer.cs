@@ -11,7 +11,7 @@ namespace Vi2B.Pages
 {
 
 
-    public partial class Search
+    public partial class Search1
     {
 
         /// <summary>

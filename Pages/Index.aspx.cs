@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using Vi2B.Stores;
 
 namespace Vi2B.Pages {
-	public partial class Index : System.Web.UI.Page {
+	public partial class Search : System.Web.UI.Page {
 		protected void Page_Load(object sender, EventArgs e) {
 			var html = "";
 			var videos = VideoStore.GetAll();

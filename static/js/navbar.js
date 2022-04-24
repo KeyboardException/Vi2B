@@ -26,12 +26,39 @@ const navbar = {
 					classes: "logo",
 					tagName: "a"
 				})
-			}}
+			}
+			},
+			middle: {
+				tag: "form",
+				class: "middle",
+				method: "GET",
+				action: "/search",
+				child: {
+					search: {
+						tag: "input",
+						type: "text",
+						name: "query",
+						class: ["flatInput", "searchInput"]
+					},
+
+					submitButton: createButton("", {
+						color: "blue",
+						style: "round",
+						icon: "search",
+						type: "submit",
+						class: "searchButton",
+						complex: true
+                    })
+				}
+			}
 		});
 
 		this.container.id = "navbar";
 		this.container.left.logo.container.href = "/";
 		this.original.parentElement.replaceChild(this.container, this.original);
+
+		const urlParams = new URLSearchParams(window.location.search);
+		this.container.middle.search.value = urlParams.get('query');
 
 		try {
 			let response = await myajax({
