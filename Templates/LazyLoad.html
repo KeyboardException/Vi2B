@@ -6,14 +6,17 @@
 		let attributes = JSON.parse(`{{attributes}}`);
 		let classes = JSON.parse(`{{classes}}`);
 
-		for (let key of Object.keys(attributes))
-			container[key] = attributes[key];
-
-		new lazyload({
-			container,
+		let image = new lazyload({
+            tagName: `{{tag}}`,
 			source: `{{url}}`,
 			classes,
 			spinner: `{{spinner}}`
 		});
+
+
+        for (let key of Object.keys(attributes))
+			image.container[key] = attributes[key];
+
+		container.parentElement.replaceChild(image.container, container);
 	})();
 </script>

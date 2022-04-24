@@ -4,7 +4,9 @@
     "\\App_Start",
     "\\assets",
     "\\assets\\css",
-    "\\Objects"
+    "\\Objects",
+    "\\Pages",
+    "\\Stores"
   ],
   "SelectedNode": "\\Vi2B.sln",
   "PreviewInSolutionExplorer": false

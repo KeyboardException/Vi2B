@@ -117,9 +117,14 @@ namespace Vi2B {
 				? Newtonsoft.Json.JsonConvert.SerializeObject(options.classes)
 				: "[]";
 
+			var tag = (options.tag != null)
+				? options.tag
+				: "div";
+
 			HtmlTemplate template = new HtmlTemplate("LazyLoad");
 			return template.Render(new {
 				id = id,
+				tag,
 				attributes = attributes,
 				classes = classes,
 				url = options.url,
