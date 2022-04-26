@@ -327,6 +327,7 @@
 
 #app > .main > .content > .forms > .update > .left {
 	flex-grow: 1;
+	flex-shrink: 0;
 	margin-right: 30px;
 }
 
