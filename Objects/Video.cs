@@ -73,6 +73,7 @@ namespace Vi2B.Objects {
 				url = GetVideoURL(),
 				this.name,
 				channel = user.name,
+				username = user.username,
 				views = views.ToString(),
 				uploaded = ReadableTime(DateTimeToUnix(DateTime.Now) - created)
 			});

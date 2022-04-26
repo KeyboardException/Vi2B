@@ -38,6 +38,7 @@ namespace Vi2B.Pages {
 				}),
 
 				name = author.name,
+				username = author.username,
 				subs = "0",
 				description = video.description
 			});

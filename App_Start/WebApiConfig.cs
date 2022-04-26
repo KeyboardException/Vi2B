@@ -22,6 +22,7 @@ namespace Vi2B {
 			RouteTable.Routes.MapPageRoute("Đăng Nhập", "login", "~/Pages/Login.aspx");
 			RouteTable.Routes.MapPageRoute("Đăng Xuất", "logout", "~/Pages/Logout.aspx");
 			RouteTable.Routes.MapPageRoute("Kênh Của Tôi", "personal", "~/Pages/Personal.aspx");
+			RouteTable.Routes.MapPageRoute("Kênh", "channel", "~/Pages/Channel.aspx");
 
 		}
 	}

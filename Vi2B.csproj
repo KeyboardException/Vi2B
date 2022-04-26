@@ -549,6 +549,7 @@
     <Content Include="Fragments\footer.html" />
     <Content Include="Fragments\header.html" />
     <Content Include="Global.asax" />
+    <Content Include="Pages\Channel.aspx" />
     <Content Include="Pages\Index.aspx" />
     <Content Include="Pages\Login.aspx" />
     <Content Include="Pages\Logout.aspx" />
@@ -584,7 +585,10 @@
     <Content Include="static\js\watch.js" />
     <Content Include="Templates\LazyLoad.html" />
     <Content Include="Templates\SvgIcon.html" />
+    <Content Include="Templates\VideoAuthor.html" />
     <Content Include="Templates\VideoCard.html" />
+    <Content Include="Templates\VideoInfo.html" />
+    <Content Include="Templates\VideoList.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -600,6 +604,13 @@
     <Compile Include="HtmlTemplate.cs" />
     <Compile Include="Objects\User.cs" />
     <Compile Include="Objects\Video.cs" />
+    <Compile Include="Pages\Channel.aspx.cs">
+      <DependentUpon>Channel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Channel.aspx.designer.cs">
+      <DependentUpon>Channel.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

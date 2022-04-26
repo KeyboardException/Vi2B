@@ -218,6 +218,7 @@ nav > .middle {
 	flex-direction: row;
 	justify-content: center;
 	height: 40px;
+	visibility:hidden;
 }
 
 nav > .middle > .searchInput {
