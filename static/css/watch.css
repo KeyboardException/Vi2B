@@ -163,6 +163,8 @@
 #app > .view > .main > .author > .top > .channel > .info > .name {
 	font-size: 16px;
 	font-weight: 600;
+	color: black;
+	text-decoration: none;
 }
 
 #app > .view > .main > .author > .top > .channel > .info > .subs {
