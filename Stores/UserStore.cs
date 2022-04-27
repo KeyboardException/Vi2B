@@ -32,9 +32,14 @@ namespace Vi2B.Stores {
 		}
 
 		public static void Load() {
-			using (FileStream stream = new FileStream(FILE_PATH, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)) {
-				var bFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-				List = (List<User>) bFormatter.Deserialize(stream);
+			try {
+				using (FileStream stream = new FileStream(FILE_PATH, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)) {
+					var bFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+					List = (List<User>) bFormatter.Deserialize(stream);
+				}
+			} catch (Exception e) {
+				Console.WriteLine("Cannot Load User Store! " + e.Message);
+				List = new List<User>();
 			}
 		}
 
